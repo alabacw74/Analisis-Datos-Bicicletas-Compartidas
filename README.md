@@ -12,10 +12,16 @@ Explora este repositorio para descubrir nuestro enfoque analítico, visualizacio
 
 ### ❔ [Preguntar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preguntar.md)
 Aquí definimos nuesta tarea empresarial y proponemos cuestiones iniciales para resolver el problema.
-### 🛠️ Preparar
+
+### 🛠️ [Preparar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preparar.md)
+Descipcion detallada de la fuente de datos que se utilizara, incluimos varias secciones que responden a cuestiones como la ubicación de los datos, su organizacion, como obtendremos informacion util a partir de ellos, bajo que licencia se encuentran, entre otros.
+
 ### 🔄 Procesar
+
 ### 📊 Analizar
+
 ### 🌐 Compartir
+
 ### 🚀 Actuar
 
 
