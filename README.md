@@ -10,9 +10,8 @@ Explora este repositorio para descubrir nuestro enfoque analítico, visualizacio
 
 ## Fases del analisis de datos
 
-### ❔ Preguntar
-Se nos ha asignado la resolución a la pregunta "¿En qué se diferencian los socios anuales y los ciclistas ocasionales con respecto al uso de las bicicletas de Cyclistic?"
-
+### ❔ [Preguntar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preguntar.md)
+Aquí definimos nuesta tarea empresarial y proponemos cuestiones iniciales para resolver el problema.
 ### 🛠️ Preparar
 ### 🔄 Procesar
 ### 📊 Analizar
