@@ -1,0 +1,136 @@
+---
+title: 'Procesamiento: Conjunto de datos de Cyclistic'
+author: 
+  - "Alfredo Aburto Alcudia"
+  - "https://github.com/alabacw74/analisis-datos-bicicletas-compartidas"
+date: "`r Sys.Date()`"
+output:
+   html_document:
+    toc: true # Mostrar tabla de contenido en documento R markdown
+    toc_depth: 5 # Niveles de la tabla de contenidoo
+    toc_float: true # Mostrar la tabla de contenido en todo el documento
+    collapsed: true # Si solo queremos que muestre el nivel principal
+    smooth_scroll: true # Reflejar nuestra ubicación en barra de contenido
+    theme: journal # Estilo del documento
+    highlight: kate # Estilo del codigo
+    df_print: paged # Estilo para mostrar los datos
+    code_folding: show # Mostrar o no el código del documento
+---
+
+<div style="text-align: justify;">
+
+## Objetivo 
+
+En esta fase del analísis realizaremos las operaciones necesarias para obtener
+los siguientes resultados:
+
+1. Datos organizados
+2. Datos limpios y filtrados
+3. Una documentación detallada de cada operación
+
+## Introducción
+
+Como se menciono en la fase de `Prepararación` nuestro conjunto de datos incluye
+la información sobre los viajes historicos en formato .zip, siendo en total
+trece ficheros. Los conjuntos de datos superan el **millón de registros** es 
+por eso que definir una herramienta adecuada para procesar los datos y 
+posteriormente poder analizarlos de manera eficiente y profesional es de vital
+importancia. Por lo anterior, en este documento incluimos la definición de la
+herramienta a utilizar y la documentación de la limpieza de los datos para 
+poder tener un flujo de trabajo adecuado y poder avanzar en el proceso de
+analisís de los datos sin contratiempos.
+
+## Importación de los datos
+
+```{r carga_paquetes}
+# Instala dplyr
+
+# install.packages("tydyverse")
+
+# Carga del paquete
+library(tidyverse)
+```
+
+### Automatización de lectura de los archivos
+
+La forma en la que se ha realizado la adquisición de los datos nos llevo a tener
+archivos aislados con nombres diferentes, para poder realizar la lectura de los
+archivos .csv extraidos y unirlos en un data frame creamos el siguiente script
+que automatiza dicha tarea. A continuación documentamos su funcionamiento:
+
+1. Inicializamos una lista que se utilizará para almacenar cada uno de los data
+   frames importados
+   
+```{r}
+lista_dataframes <- list()
+```
+
+2. Creamos una estructura que realiza las siguientes acciones (ver paso
+   correspondiente en el bloque de código):
+   
+    1. Creamos el ciclo for con una variable j que toma los valores de 20 y 21,
+       esta variable se utiliza para crear dinamicamente los nombres de los
+       archivos a leer en especifico el año, interesandonos 2020 y 2021.
+       
+    2. Con la estructura if buscamos modificar el valor de la variable i del
+       paso 3, ya que los ficheros tienen la estructura "202004, 202005" y
+       asi sucesivamente hasta llegar a la terminación 12 y luego comenzando
+       el conteo con "202101" hasta la terminación 04. Es por lo anterior que
+       deseamos que la variable i tome valores diferentes segun el año en el
+       que estemos.
+       
+    3. Creamos el ciclo for con una variable i que, como se menciono en el paso
+       2 toma valores diferentes según el año en el que nos encontremos. Para
+       el año 2020 tomará el conjunto [4, 12] y para el año 2021 [1, 4]. Esta
+       variable se utiliza para crear dinamicamente en conjunto con la variable
+       j el nombre del archivo que se debe leer.
+       
+    4. Genera el nombre del periodo y del archivo CSV
+```{r}
+# # Paso 1
+# for (j in 20:21){
+#   # Paso 2
+#   if(j == 20){
+#     #  Paso 3
+#     for (i in 4:12) {
+#     
+#     # Paso 4
+#     nombre_variable <- paste("periodo_2020",
+#                              sprintf("%02d", i), sep="")
+#     archivo_csv <- paste("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/",
+#                          paste("20", j, sprintf("%02d", i),
+#                                "-divvy-tripdata.csv",sep = ""),
+#                          sep=""
+#                          )
+#   
+#     # Lee el archivo CSV y asigna el resultado a la lista de data frames
+#     assign(nombre_variable, read_csv(archivo_csv))
+#     lista_dataframes[[nombre_variable]] <- get(nombre_variable)
+#     }
+#   }else{
+#     for (i in 1:4){
+#       # Genera el nombre del periodo y del archivo CSV
+#     nombre_variable <- paste("periodo_",
+#                              paste("20", j, sprintf("%02d", i), sep=""),
+#                              sep=""
+#                              )
+#     archivo_csv <- paste("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/",
+#                          paste("20", j, sprintf("%02d", i),
+#                                "-divvy-tripdata.csv",sep = ""),
+#                          sep=""
+#                          )
+#   
+#     # Lee el archivo CSV y asigna el resultado a la lista de data frames
+#     assign(nombre_variable, read_csv(archivo_csv))
+#     lista_dataframes[[nombre_variable]] <- get(nombre_variable)
+#     }
+#       
+#   }
+# }
+```
+```{r}
+# Combina todos los data frames en uno solo
+# conjunto_datos <- bind_rows(lista_dataframes)
+```
+
+</div>
