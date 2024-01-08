@@ -276,3 +276,166 @@ a los data frames correspondientes almacenados en `lista_dataframes`.
 conjunto_datos <- bind_rows(lista_dataframes)
 View(conjunto_datos)
 ```
+
+### Unificar datos en un único data frame
+
+```r
+# Combina todos los data frames en uno solo
+conjunto_datos <- bind_rows(lista_dataframes)
+View(conjunto_datos)
+```
+### Separar started_at y enden_at
+
+Deseamos generar columnas separadas tanto para la fecha como para la hora de
+inicio y finalización del viaje, eso se logra con los siguientes bloques de
+código
+
+```{r}
+cyclistic_data <- separate(conjunto_datos, "started_at",
+                           into=c("fecha_inicio", "hora_inicio"),
+                           sep=" ")
+```
+
+```{r}
+cyclistic_data <- separate(cyclistic_data, "ended_at",
+                           into=c("fecha_finalizacion", "hora_finalizacion"),
+                           sep=" ")
+```
+### Convertimos fecha_inicio, fecha_finalizacion, hora_inicio_ hora finalizacion
+
+```{r}
+cyclistic_data %>% 
+  mutate(cyclistic_data,
+         fecha_inicio = ymd(fecha_inicio),
+         fecha_finalizacion = ymd(fecha_finalizacion),
+         hora_inicio = as.POSIXct(hora_inicio, format= "%H:%M:%S"),
+         hora_finalizacion = as.POSIXct(hora_inicio, format= "%H:%M:%S"))
+```
+
+### Procesamiento de datos nulos
+
+Para poder ver el conjunto de observaciones que cuentan con datos nulos
+ejecutamos el siguiente código:
+
+``` r
+filas_con_nulos <- tu_data_frame[apply(is.na(tu_data_frame), 1, any), ]
+```
+
+1. `is.na(tu_data_frame)`: Esta expresión crea una matriz booleana del mismo
+tamaño que `tu_data_frame`, donde cada elemento es `TRUE` si el valor 
+correspondiente en `tu_data_frame` es `NA` (nulo), y `FALSE` en caso contrario.
+
+2. `apply(is.na(tu_data_frame), 1, any)`: La función `apply` se utiliza para 
+aplicar una función a los márgenes de una matriz o array. En este 
+caso, aplicamos la función `any` a lo largo de las filas (especificado por
+el argumento `1`). La función `any` devuelve `TRUE` si al menos uno de los 
+valores es `TRUE` en cada fila. Esto nos da un vector lógico que indica qué
+filas tienen al menos un valor nulo.
+
+3. `tu_data_frame[apply(is.na(tu_data_frame), 1, any), ]`: Finalmente, 
+utilizamos este vector lógico para seleccionar las filas de `tu_data_frame` 
+donde al menos un valor es nulo. Entonces, `filas_con_nulos` contendrá 
+únicamente las filas que tienen datos nulos.
+
+```r
+str(filas_con_nulos)
+```
+
+Tenemos `234 800` columnas que contienen datos nulos, vamos a verificar 
+el número de nulos en cada una de las columnas
+
+```r
+# Nombre del data frame
+nombre_data_frame <- filas_con_nulos
+
+# Inicializar una lista para almacenar los conteos de nulos por columna
+conteos_nulos <- list()
+
+# Iterar sobre todas las columnas del data frame
+for (nombre_columna in colnames(nombre_data_frame)) {
+  # Contar valores nulos en la columna específica
+  nulos_en_columna <- sum(is.na(nombre_data_frame[[nombre_columna]]))
+  
+  # Imprimir el resultado
+  print(paste("Número de valores nulos en", nombre_columna, ":", nulos_en_columna))
+  
+  # Almacenar el resultado en la lista
+  conteos_nulos[[nombre_columna]] <- nulos_en_columna
+}
+
+```
+
+La salida nos muestra que la mayor cantidad de nulos la encontramos en las
+variables `start_station_name`, start_station_id, end_station_name y 
+end_station_id. Es dceri, tenemos la mayor densidad de nulos en información
+referente a las estaciones de inicio y de termino del viaje. Para fines de
+nuestro analisis es importante conocer esta información ya que se busca poder
+determinar con ella una distancia aproximada de viaje recorrido. Sin embargo,
+estos datos representan un 6.14 % del universo de datos. Por lo que omitiremos
+estos datos para fines de conocer la distancia aproximada de viaje pero pueden
+proporcionar información útil sobre el tipo de miembro.
+
+### Verificar duplicados
+
+```r
+# Nombre de tu data frame
+nombre_data_frame <- conjunto_datos
+
+# Verificar si hay duplicados en el data frame
+hay_duplicados <- any(duplicated(nombre_data_frame))
+
+# Imprimir el resultado
+if (hay_duplicados) {
+  print("Existen datos duplicados en el data frame.")
+} else {
+  print("No hay datos duplicados en el data frame.")
+}
+La salida indica que no existen datos duplicados, para terminar nuestro
+procesamiento procedemos a ordenarlos
+
+### Ordenar los datos
+
+Como último paso, ordenamos nuestros datos del mas reciente al mas antiguo,
+terminando con esto nuestro procesamiento de datos
+
+```r
+cyclistic_data <- cyclistic_data %>% 
+  arrange(desc(fecha_inicio))
+```
+
+### Almacenamos nuestro conjunto de datos final
+
+El formato de archivo `.rds` es un formato de serialización en R que se utiliza
+para guardar objetos de R en un archivo binario. "RDS" significa "R Data 
+Serialization". Es un formato eficiente para almacenar objetos R, y se utiliza 
+comúnmente para guardar datos, modelos, marcos de datos y otros objetos de R 
+para su posterior uso.
+
+Algunas características y consideraciones sobre el formato `.rds`:
+
+1. **Eficiencia de Almacenamiento:** El formato `.rds` es binario, lo que
+significa que es más eficiente en términos de espacio en comparación con otros
+formatos de almacenamiento de datos, como CSV o XLSX.
+
+2. **Soporte para Diversos Objetos:** Puedes guardar una variedad de objetos de
+R en formato `.rds`, incluyendo marcos de datos, listas, modelos, entre otros.
+
+3. **Preservación de Metadatos:** A diferencia de algunos formatos de 
+intercambio de datos, el formato `.rds` preserva los atributos y metadatos 
+asociados con los objetos de R, lo que es útil para la recuperación precisa
+de los datos.
+
+4. **Función de Lectura y Escritura en R:** Puedes utilizar las funciones 
+`saveRDS()` para guardar un objeto en formato `.rds` y `readRDS()` para 
+leer el objeto de vuelta a R.
+
+El formato `.rds` es particularmente útil cuando deseas compartir datos o 
+resultados de análisis con otros usuarios de R o cuando necesitas almacenar 
+objetos de manera eficiente para un uso futuro.
+
+```r
+saveRDS(cyclistic_data,
+        "~/Desktop/Analisis_de_datos/Cyclistic_Datasets/cyclistic_data.rds")
+```
+
+```
