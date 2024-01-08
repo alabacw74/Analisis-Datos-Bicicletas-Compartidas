@@ -140,7 +140,8 @@ for (j in 20:21) {
     }
   } else {
     for (i in 1:4) {
-      nombre_variable <- paste("periodo_", paste("20", j, sprintf("%02d", i), sep=""), sep="")
+      nombre_variable <- paste("periodo_", paste("20", j, sprintf("%02d", i), 
+                                                 sep=""), sep="")
       tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
     }
   }
@@ -155,15 +156,26 @@ tipo de dato en todos los data frames.
 
 ```{r}
 comparacion_tipos <- all(sapply(tipos_de_datos[-1],
-                                function(x) identical(x, tipos_de_datos[[1]])))
+                                function(x) identical(x, 
+                                                      tipos_de_datos[[1]])))
 if (comparacion_tipos) {
-  print("Todos los data frames tienen las mismas columnas con el mismo tipo de dato.")
+  print("Todos los data frames tienen las mismas columnas con el 
+        mismo tipo de dato.")
 } else {
   print("Hay columnas con diferentes tipos de datos en los siguientes data frames:")
   for (i in 2:length(tipos_de_datos)) {
-    if (!all(sapply(seq_along(tipos_de_datos[[1]]), function(j) identical(tipos_de_datos[[i]][[j]], tipos_de_datos[[1]][[j]])))) {
-      columnas_diferentes <- names(tipos_de_datos[[i]])[!(sapply(seq_along(tipos_de_datos[[1]]), function(j) identical(tipos_de_datos[[i]][[j]], tipos_de_datos[[1]][[j]])))]
-      print(paste("En el data frame", names(tipos_de_datos)[i], "las columnas siguientes tienen tipos de datos diferentes:", paste(columnas_diferentes, collapse = ", ")))
+    
+    if (!all(sapply(seq_along(tipos_de_datos[[1]]),
+                    function(j) identical(tipos_de_datos[[i]][[j]], 
+                                          tipos_de_datos[[1]][[j]])))) {
+      columnas_diferentes <- 
+        names(tipos_de_datos[[i]])[!(sapply(seq_along(tipos_de_datos[[1]]),
+                function(j) identical(tipos_de_datos[[i]][[j]],
+                                      tipos_de_datos[[1]][[j]])))]
+      
+      print(paste("En el data frame", names(tipos_de_datos)[i], "las columnas
+                  siguientes tienen tipos de datos diferentes:", 
+                  paste(columnas_diferentes, collapse = ", ")))
     }
   }
 }
@@ -174,9 +186,71 @@ tipos de datos en los data frames, señalando si todos son consistentes o, en
 caso contrario, identificando las columnas específicas y los data frames 
 donde se encuentran diferencias.
 
+#### Paso 3: Unificar tipos de datos
+
+Con la sálida del código anterior podemos corregir las discrepancias en los
+tipos de datos de algunas columnas:
+
+Como se observa las columnas que presentan diferencias son
+`start_station_id` y `end_station_id`, para los data frame que nos proporciona
+el código anterior son de tipo `character`, considero que es mejor trabajar 
+estos identificadores con el tipo `character` que con el tipo `double` que es
+el tipo de dato con el que se encuentran en todos los demas data frame. Por lo
+anterior, procedemos a convertir dichas columnas a tipo `character`
+
+#### Conversión de Columnas a Tipo Character en Data Frames
+
+El siguiente bloque de código tiene como objetivo convertir las columnas 
+`start_station_id` y `end_station_id` de los data frames almacenados en una l
+ista (`lista_dataframes`) a tipo character. Esto es útil cuando se desea 
+trabajar con identificadores únicos que contienen solo números y se prefiere 
+tratarlos como caracteres. A continuación, se presenta una explicación 
+detallada del código:
+
+1. **Definición de la función `convertir_a_character`:**
+```{R}
+   convertir_a_character <- function(df) {
+     mutate(df, 
+            start_station_id = as.character(start_station_id),
+            end_station_id = as.character(end_station_id))
+   }
+```
+
+Se crea una función llamada `convertir_a_character` que toma un data frame `df` 
+como entrada. Utiliza la función `mutate` del paquete `dplyr` para convertir 
+las columnas `start_station_id` y `end_station_id` a tipo character.
+
+2. **Iteración sobre los valores de `j` y `i`:**
+```{R}
+   for (j in 20:21) {
+     if (j == 20) {
+       for (i in 4:11) {
+         nombre_variable <- paste("periodo_2020", sprintf("%02d", i), sep="")
+         lista_dataframes[[nombre_variable]] <- convertir_a_character(lista_dataframes[[nombre_variable]])
+       }
+     } else {
+       for (i in 1:4) {
+         nombre_variable <- paste("periodo_", paste("20", j, sprintf("%02d", i), sep=""), sep="")
+         lista_dataframes[[nombre_variable]] <- convertir_a_character(lista_dataframes[[nombre_variable]])
+       }
+     }
+   }
+```
+Se itera sobre los valores de `j` (20 y 21) para los años 2020 y 2021. 
+Dependiendo de la condición `if`, se ajusta la variable `i` y se generan los 
+nombres de las variables. Luego, se aplica la función `convertir_a_character`
+a los data frames correspondientes almacenados en `lista_dataframes`.
+
+3. **Observaciones:**
+   - Asegúrate de tener instalado el paquete `dplyr` antes de ejecutar este 
+     código.
+   - La función `convertir_a_character` utiliza `mutate` para realizar la 
+     conversión de tipo.
+
 ```{r}
 # Combina todos los data frames en uno solo
-# conjunto_datos <- bind_rows(lista_dataframes)
+conjunto_datos <- bind_rows(lista_dataframes)
+View(conjunto_datos)
 ```
 
 </div>
