@@ -157,40 +157,44 @@ for (j in 20:21){
 
 ### Verificar tipos de datos
 
-Verificamos que cada variable de cada conjunto de
-datos importado sea consistente, para ello crearemos una función que verifique
-esto.
+En esta sección del análisis, se busca verificar que todos los data frames 
+tengan las mismas columnas con el mismo tipo de dato. Esto es esencial antes de
+combinar los data frames en uno solo.
 
-```{r verficar_tipo_de_dato}
+#### Paso 1: Creación de la Lista de Tipos de Datos
+
+Para cada periodo de tiempo (ya sea del año 2020 o 2021), se crea una entrada 
+en la lista `tipos_de_datos`. Se utiliza un bucle anidado para iterar sobre 
+los periodos y las fechas, obteniendo así los tipos de datos de cada columna 
+de cada data frame.
+
+```{r}
 tipos_de_datos <- list()
 
-# Paso 1
-for (j in 20:21){
-   # Paso 2
-   if(j == 20){
-     # Paso 3
-     for (i in 4:12) {
-       # Paso 4
-       nombre_variable <- paste("periodo_2020",
-                                sprintf("%02d", i), sep="")
-       # Paso 5
-       tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
-     }
-   } else {
-     for (i in 1:4){
-       # Genera el nombre del periodo y del archivo CSV
-       nombre_variable <- paste("periodo_",
-                                paste("20", j, sprintf("%02d", i), sep=""),
-                                sep=""
-       )
-       tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
-     }
-   }
+for (j in 20:21) {
+  if (j == 20) {
+    for (i in 4:12) {
+      nombre_variable <- paste("periodo_2020", sprintf("%02d", i), sep="")
+      tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
+    }
+  } else {
+    for (i in 1:4) {
+      nombre_variable <- paste("periodo_", paste("20", j, sprintf("%02d", i), sep=""), sep="")
+      tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
+    }
+  }
 }
+```
 
-# Comparación de tipos de datos
-comparacion_tipos <- all(sapply(tipos_de_datos[-1], function(x) identical(x, tipos_de_datos[[1]])))
+#### Paso 2: Comparación de Tipos de datos
 
+Luego de obtener los tipos de datos de cada columna de cada data frame, se 
+realiza una comparación para verificar si todas las columnas tienen el mismo 
+tipo de dato en todos los data frames.
+
+```{r}
+comparacion_tipos <- all(sapply(tipos_de_datos[-1],
+                                function(x) identical(x, tipos_de_datos[[1]])))
 if (comparacion_tipos) {
   print("Todos los data frames tienen las mismas columnas con el mismo tipo de dato.")
 } else {
@@ -202,8 +206,12 @@ if (comparacion_tipos) {
     }
   }
 }
-
 ```
+
+Este código proporciona una salida informativa sobre la consistencia de los 
+tipos de datos en los data frames, señalando si todos son consistentes o, en 
+caso contrario, identificando las columnas específicas y los data frames 
+donde se encuentran diferencias.
 
 ```{r}
 # Combina todos los data frames en uno solo
