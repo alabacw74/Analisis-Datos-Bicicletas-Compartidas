@@ -111,48 +111,100 @@ lista_dataframes <- list()
     El bloque de código subsecuente realiza lo descrito anteriormente pero con
     un valor de j igual a 21
 ```{r}
-# # Paso 1
-# for (j in 20:21){
-#   # Paso 2
-#   if(j == 20){
-#     #  Paso 3
-#     for (i in 4:12) {
-#     
-#     # Paso 4
-#     nombre_variable <- paste("periodo_2020",
-#                              sprintf("%02d", i), sep="")
+# Paso 1
+for (j in 20:21){
+   # Paso 2
+   if(j == 20){
+     #  Paso 3
+     for (i in 4:12) {
+
+     # Paso 4
+     nombre_variable <- paste("periodo_2020",
+                              sprintf("%02d", i), sep="")
       # Paso 5
-#     archivo_csv <- paste("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/",
-#                          paste("20", j, sprintf("%02d", i),
-#                                "-divvy-tripdata.csv",sep = ""),
-#                          sep=""
-#                          )
-#     # Paso 6
-#     # Lee el archivo CSV y asigna el resultado a la lista de data frames
-#     assign(nombre_variable, read_csv(archivo_csv))
-#     lista_dataframes[[nombre_variable]] <- get(nombre_variable)
-#     }
-#   }else{
-#     for (i in 1:4){
-#       # Genera el nombre del periodo y del archivo CSV
-#     nombre_variable <- paste("periodo_",
-#                              paste("20", j, sprintf("%02d", i), sep=""),
-#                              sep=""
-#                              )
-#     archivo_csv <- paste("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/",
-#                          paste("20", j, sprintf("%02d", i),
-#                                "-divvy-tripdata.csv",sep = ""),
-#                          sep=""
-#                          )
-#   
-#     # Lee el archivo CSV y asigna el resultado a la lista de data frames
-#     assign(nombre_variable, read_csv(archivo_csv))
-#     lista_dataframes[[nombre_variable]] <- get(nombre_variable)
-#     }
-#       
-#   }
-# }
+     archivo_csv <- paste("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/",
+                          paste("20", j, sprintf("%02d", i),
+                                "-divvy-tripdata.csv",sep = ""),
+                          sep=""
+                          )
+     # Paso 6
+     # Lee el archivo CSV y asigna el resultado a la lista de data frames
+     assign(nombre_variable, read_csv(archivo_csv))
+     lista_dataframes[[nombre_variable]] <- get(nombre_variable)
+     }
+   }else{
+     for (i in 1:4){
+       # Genera el nombre del periodo y del archivo CSV
+     nombre_variable <- paste("periodo_",
+                              paste("20", j, sprintf("%02d", i), sep=""),
+                              sep=""
+                              )
+     archivo_csv <- paste("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/",
+                          paste("20", j, sprintf("%02d", i),
+                                "-divvy-tripdata.csv",sep = ""),
+                          sep=""
+                          )
+
+     # Lee el archivo CSV y asigna el resultado a la lista de data frames
+     assign(nombre_variable, read_csv(archivo_csv))
+     lista_dataframes[[nombre_variable]] <- get(nombre_variable)
+     }
+
+   }
+ }
 ```
+## Limpieza de los datos
+
+### Verificar tipos de datos
+
+Verificamos que cada variable de cada conjunto de
+datos importado sea consistente, para ello crearemos una función que verifique
+esto.
+
+```{r verficar_tipo_de_dato}
+tipos_de_datos <- list()
+
+# Paso 1
+for (j in 20:21){
+   # Paso 2
+   if(j == 20){
+     # Paso 3
+     for (i in 4:12) {
+       # Paso 4
+       nombre_variable <- paste("periodo_2020",
+                                sprintf("%02d", i), sep="")
+       # Paso 5
+       tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
+     }
+   } else {
+     for (i in 1:4){
+       # Genera el nombre del periodo y del archivo CSV
+       nombre_variable <- paste("periodo_",
+                                paste("20", j, sprintf("%02d", i), sep=""),
+                                sep=""
+       )
+       tipos_de_datos[[nombre_variable]] <- sapply(get(nombre_variable), class)
+     }
+   }
+}
+
+# Comparación de tipos de datos
+comparacion_tipos <- all(sapply(tipos_de_datos[-1], function(x) identical(x, tipos_de_datos[[1]])))
+
+if (comparacion_tipos) {
+  print("Todos los data frames tienen las mismas columnas con el mismo tipo de dato.")
+} else {
+  print("Hay columnas con diferentes tipos de datos en los siguientes data frames:")
+  for (i in 2:length(tipos_de_datos)) {
+    if (!all(sapply(seq_along(tipos_de_datos[[1]]), function(j) identical(tipos_de_datos[[i]][[j]], tipos_de_datos[[1]][[j]])))) {
+      columnas_diferentes <- names(tipos_de_datos[[i]])[!(sapply(seq_along(tipos_de_datos[[1]]), function(j) identical(tipos_de_datos[[i]][[j]], tipos_de_datos[[1]][[j]])))]
+      print(paste("En el data frame", names(tipos_de_datos)[i], "las columnas siguientes tienen tipos de datos diferentes:", paste(columnas_diferentes, collapse = ", ")))
+    }
+  }
+}
+
+```
+
 ```{r}
 # Combina todos los data frames en uno solo
 # conjunto_datos <- bind_rows(lista_dataframes)
