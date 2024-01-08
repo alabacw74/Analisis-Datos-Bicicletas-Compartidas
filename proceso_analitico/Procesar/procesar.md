@@ -3,6 +3,27 @@
 Alfredo Aburto
 2024-01-05
 
+# Índice
+
+- [Introducción](#introducción)
+- [Importación de los datos](#importación-de-los-datos)
+   - [Automatización de lectura de los archivos](#automatización-de-lectura-de-los-archivos)
+- [Limpieza de los datos](#limpieza-de-los-datos)
+   - [Verificar tipos de datos](#verificar-tipos-de-datos)
+      - [Creación de la Lista de Tipos de Datos](#creación-de-la-lista-de-tipos-de-datos)
+      - [Comparación de Tipos de datos](#comparación-de-tipos-de-datos)
+      - [Unificar tipos de datos](#unificar-tipos-de-datos)
+   - [Conversión de Columnas a Tipo Character en Data Frames](#conversión-de-columnas-a-tipo-character-en-data-frames)
+   - [Unificar datos en un único data frame](#unificar-datos-en-un-único-data-frame)
+   - [Separar started_at y ended_at](#separar-started_at-y-ended_at)
+   - [Convertir fecha_inicio, fecha_finalizacion, hora_inicio, y hora_finalizacion](#convertir-fecha_inicio-fecha_finalizacion-hora_inicio-y-hora_finalizacion)
+   - [Procesamiento de datos nulos](#procesamiento-de-datos-nulos)
+      - [Verificar observaciones con datos nulos](#verificar-observaciones-con-datos-nulos)
+      - [Conteo de nulos por columna](#conteo-de-nulos-por-columna)
+   - [Verificar duplicados](#verificar-duplicados)
+   - [Ordenar los datos](#ordenar-los-datos)
+   - [Almacenar conjunto de datos final en formato .rds](#almacenar-conjunto-de-datos-final-en-formato-rds)
+
 ## Objetivo 
 
 En esta fase del analísis realizaremos las operaciones necesarias para obtener
