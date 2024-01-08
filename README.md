@@ -16,7 +16,8 @@ Aquí definimos nuesta tarea empresarial y proponemos cuestiones iniciales para 
 ### 🛠️ [Preparar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preparar.md)
 Descipcion detallada de la fuente de datos que se utilizara, incluimos varias secciones que responden a cuestiones como la ubicación de los datos, su organizacion, como obtendremos informacion util a partir de ellos, bajo que licencia se encuentran, entre otros.
 
-### 🔄 Procesar
+### 🔄 [Procesar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/procesar.md)
+Se documenta todo el procesamiento de datos en donde incluimos la descripción de bloques de código que permitan automatizar tareas de importación, transformación, limpieza y organización del conjunto de datos obteniendo finalmente un data set listo para ser analizado.
 
 ### 📊 Analizar
 
