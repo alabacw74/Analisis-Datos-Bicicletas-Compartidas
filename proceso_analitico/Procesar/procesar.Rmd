@@ -252,8 +252,19 @@ a los data frames correspondientes almacenados en `lista_dataframes`.
 ```{r}
 # Combina todos los data frames en uno solo
 conjunto_datos <- bind_rows(lista_dataframes)
-View(conjunto_datos)
+str(conjunto_datos)
 ```
+### Separar started_at y enden_at
+
+Deseamos generar columnas separadas tanto para la fecha como para la hora de
+inicio y finalización del viaje
+
+```{r}
+cyclistic_data <- separate(conjunto_datos, "started_at",
+                           into=c("fecha_inicio", "hora_inicio"),
+                           sep=" ")
+```
+
 
 ### Procesamiento de datos nulos
 
@@ -338,5 +349,12 @@ if (hay_duplicados) {
 
 La salida indica que no existen datos duplicados, para terminar nuestro
 procesamiento procedemos a ordenarlos
+
+### Ordenar los datos
+
+```{r}
+conjunto_datos %>% 
+  arrange(-started_at)
+```
 
 </div>
