@@ -1,0 +1,25 @@
+title: 'Documentación de Procesamiento: Conjunto de datos de Cyclistic'
+author: 
+  - "Alfredo Aburto Alcudia"
+  - "https://github.com/alabacw74/analisis-datos-bicicletas-compartidas"
+date: "`r Sys.Date()`"
+output:
+   html_document:
+    toc: true # Mostrar tabla de contenido en documento R markdown
+    toc_depth: 5 # Niveles de la tabla de contenidoo
+    toc_float: true # Mostrar la tabla de contenido en todo el documento
+    collapsed: true # Si solo queremos que muestre el nivel principal
+    smooth_scroll: true # Reflejar nuestra ubicación en barra de contenido
+    theme: journal # Estilo del documento
+    highlight: kate # Estilo del codigo
+    df_print: paged # Estilo para mostrar los datos
+    code_folding: show # Mostrar o no el código del documento
+---
+
+<div style="text-align: justify;">
+
+## Presentación
+
+En este documento mostramos una documentación detallada de la funcionalidad
+de cada bloque de código utilizado para automatizar tareas durante el
+procesamiento del *Conjunto de datos de Cyclistic*
