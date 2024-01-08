@@ -318,5 +318,25 @@ estos datos representan un 6.14 % del universo de datos. Por lo que omitiremos
 estos datos para fines de conocer la distancia aproximada de viaje pero pueden
 proporcionar información útil sobre el tipo de miembro.
 
+### Verificar duplicados
+
+```{r}
+# Nombre de tu data frame
+nombre_data_frame <- conjunto_datos
+
+# Verificar si hay duplicados en el data frame
+hay_duplicados <- any(duplicated(nombre_data_frame))
+
+# Imprimir el resultado
+if (hay_duplicados) {
+  print("Existen datos duplicados en el data frame.")
+} else {
+  print("No hay datos duplicados en el data frame.")
+}
+
+```
+
+La salida indica que no existen datos duplicados, para terminar nuestro
+procesamiento procedemos a ordenarlos
 
 </div>
