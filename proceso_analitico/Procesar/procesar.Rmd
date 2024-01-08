@@ -247,10 +247,76 @@ a los data frames correspondientes almacenados en `lista_dataframes`.
    - La función `convertir_a_character` utiliza `mutate` para realizar la 
      conversión de tipo.
 
+### Unificar datos en un único data frame
+
 ```{r}
 # Combina todos los data frames en uno solo
 conjunto_datos <- bind_rows(lista_dataframes)
 View(conjunto_datos)
 ```
+
+### Procesamiento de datos nulos
+
+Para poder ver el conjunto de observaciones que cuentan con datos nulos
+ejecutamos el siguiente código:
+
+``` {r}
+filas_con_nulos <- tu_data_frame[apply(is.na(tu_data_frame), 1, any), ]
+```
+
+1. `is.na(tu_data_frame)`: Esta expresión crea una matriz booleana del mismo
+tamaño que `tu_data_frame`, donde cada elemento es `TRUE` si el valor 
+correspondiente en `tu_data_frame` es `NA` (nulo), y `FALSE` en caso contrario.
+
+2. `apply(is.na(tu_data_frame), 1, any)`: La función `apply` se utiliza para 
+aplicar una función a los márgenes de una matriz o array. En este 
+caso, aplicamos la función `any` a lo largo de las filas (especificado por
+el argumento `1`). La función `any` devuelve `TRUE` si al menos uno de los 
+valores es `TRUE` en cada fila. Esto nos da un vector lógico que indica qué
+filas tienen al menos un valor nulo.
+
+3. `tu_data_frame[apply(is.na(tu_data_frame), 1, any), ]`: Finalmente, 
+utilizamos este vector lógico para seleccionar las filas de `tu_data_frame` 
+donde al menos un valor es nulo. Entonces, `filas_con_nulos` contendrá 
+únicamente las filas que tienen datos nulos.
+
+```{r}
+str(filas_con_nulos)
+```
+
+Tenemos `234 800` columnas que contienen datos nulos, vamos a verificar 
+el número de nulos en cada una de las columnas
+
+```{r}
+# Nombre del data frame
+nombre_data_frame <- filas_con_nulos
+
+# Inicializar una lista para almacenar los conteos de nulos por columna
+conteos_nulos <- list()
+
+# Iterar sobre todas las columnas del data frame
+for (nombre_columna in colnames(nombre_data_frame)) {
+  # Contar valores nulos en la columna específica
+  nulos_en_columna <- sum(is.na(nombre_data_frame[[nombre_columna]]))
+  
+  # Imprimir el resultado
+  print(paste("Número de valores nulos en", nombre_columna, ":", nulos_en_columna))
+  
+  # Almacenar el resultado en la lista
+  conteos_nulos[[nombre_columna]] <- nulos_en_columna
+}
+
+```
+
+La salida nos muestra que la mayor cantidad de nulos la encontramos en las
+variables `start_station_name`, start_station_id, end_station_name y 
+end_station_id. Es dceri, tenemos la mayor densidad de nulos en información
+referente a las estaciones de inicio y de termino del viaje. Para fines de
+nuestro analisis es importante conocer esta información ya que se busca poder
+determinar con ella una distancia aproximada de viaje recorrido. Sin embargo,
+estos datos representan un 6.14 % del universo de datos. Por lo que omitiremos
+estos datos para fines de conocer la distancia aproximada de viaje pero pueden
+proporcionar información útil sobre el tipo de miembro.
+
 
 </div>
