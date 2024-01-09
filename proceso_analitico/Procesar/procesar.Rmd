@@ -276,6 +276,8 @@ cyclistic_data <- separate(cyclistic_data, "ended_at",
 ```{r}
 cyclistic_data <- cyclistic_data %>% 
   mutate(
+    fecha_inicio = as.Date(fecha_inicio),
+    fecha_finalizacion = as.Date(fecha_finalizacion),
     hora_inicio = as.POSIXct(hora_inicio, format = "%H:%M:%S"),
     hora_finalizacion = as.POSIXct(hora_finalizacion, format = "%H:%M:%S"),
     duracion_viaje = as.numeric(difftime(hora_finalizacion, hora_inicio, units = "mins"))
