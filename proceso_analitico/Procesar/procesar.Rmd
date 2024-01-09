@@ -282,6 +282,60 @@ cyclistic_data <- cyclistic_data %>%
   )
 
 ```
+
+### Verificar consistencia de los datos
+
+El proovedor de datos había informado lo siguiente:
+
+> Los datos se han procesado para eliminar los viajes que realiza el personal 
+mientras presta servicio e inspecciona el sistema; y cualquier viaje que dure 
+menos de 60 segundos (posiblemente salidas en falso o usuarios que intenten 
+volver a acoplar una bicicleta para asegurarse de que esté segura).
+
+No obstante, se había procedido a la fase de analizar sin verificar que esta
+información y al querer implementar un proceso de analisís ha salido a la luz
+que existen observaciones con diferencias de latitud y longitud igual a cero.
+
+Esto se interpreta como una salida en falso o viajes que realmente no se 
+realizaron. Para poder eliminar esto seguimos el siguiente código:
+
+```{r message=FALSE, warning=FALSE}
+# Cargar la biblioteca 'geosphere' para funciones de cálculo de distancias
+#install.packages("geosphere")
+library(geosphere)
+
+```
+Nuestro data_frame tiene las columnas `start_lat`, `start_lng`, `end_lat`, 
+`end_lng`. Estas columnas contienen coordenadas de inicio y fin de cada viaje
+
+Calcularemos la distancia `haversine` para cada viaje y almacenaremos el 
+resultado en una nueva columna 'distancia_viaje'
+
+```{r}
+cyclistic_data$distancia_viaje <- distHaversine(cbind(cyclistic_data$start_lng,
+                                                cyclistic_data$start_lat), 
+                                          cbind(cyclistic_data$end_lng, 
+                                                cyclistic_data$end_lat))
+
+# La columna 'distancia_viaje' ahora contiene la distancia haversine en metros 
+# para cada viaje
+```
+
+Contamos el número de observaciones que tienen una distancia de viaje de cero
+
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje == 0) %>% 
+  summarise(cantidad = n())
+```
+
+Eliminamos estas observaciones y las almacenamos en el conjunto de datos
+
+```{r}
+cyclistic_data <- cyclistic_data %>% 
+  filter(distancia_viaje != 0)
+```
+
 ### Verificamos categorias existentes en las variables
 
 ```{r}
