@@ -1,0 +1,32 @@
+---
+title: 'Analisís: Conjunto de datos de Cyclistic'
+author: 
+  - "Alfredo Aburto Alcudia"
+  - "https://github.com/alabacw74/analisis-datos-bicicletas-compartidas"
+date: "`r Sys.Date()`"
+output:
+   html_document:
+    toc: true # Mostrar tabla de contenido en documento R markdown
+    toc_depth: 5 # Niveles de la tabla de contenidoo
+    toc_float: true # Mostrar la tabla de contenido en todo el documento
+    collapsed: true # Si solo queremos que muestre el nivel principal
+    smooth_scroll: true # Reflejar nuestra ubicación en barra de contenido
+    theme: journal # Estilo del documento
+    highlight: kate # Estilo del codigo
+    df_print: paged # Estilo para mostrar los datos
+    code_folding: show # Mostrar o no el código del documento
+---
+
+<div style="text-align: justify;">
+
+## Objetivo
+
+En esta fase del analisís de datos se busca obtener la información valiosa que
+nuestro conjunto de datos pueda ofrecer. En este punto contamos con datos
+preparados y procesados, listos para ser analizados. Es por ello que en esta
+sección utilizaremos herramientas estadísticas que nos permitan conocer el 
+comportamiento diferenciado entre los miembros casuales y suscriptores anuales
+del sistema de prestamo de bicicletas.
+
+
+</div>
