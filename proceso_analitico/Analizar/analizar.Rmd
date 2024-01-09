@@ -53,6 +53,23 @@ conteo_tipo_usuario <- cyclistic_data %>%
   summarise(count = n())
 ```
 
+### Visualización
+
+```{r}
+# Porcentaje de cada tipo de usuario
+porcentaje_tipo_usuario <- (conteo_tipo_usuario$count / sum(conteo_tipo_usuario$count)) * 100
+
+# Colores personalizados
+colores <- c("#FF9999", "#66B2FF")
+
+# Crear el gráfico circular con porcentajes
+pie(porcentaje_tipo_usuario, 
+    labels = paste0(conteo_tipo_usuario$member_casual, ": ", round(porcentaje_tipo_usuario, 1), "%"),
+    main = "Porcentaje de cada tipo de usuario",
+    col = colores
+)
+```
+
 
 ## Duración de viaje
 
@@ -67,6 +84,20 @@ duracion_viaje_por_tipo <- cyclistic_data %>%
   group_by(member_casual) %>% 
   drop_na() %>% 
   summarise(tiempo_promedio_viaje = mean(duracion_viaje))
+```
+
+### Visualizacion
+
+```{r}
+ggplot(data = duracion_viaje_por_tipo) +
+  geom_col(mapping = aes(x=member_casual, y=tiempo_promedio_viaje,
+                         fill=member_casual)) +
+  scale_fill_manual(values = c("casual" = "#FF9999", "member" = "#66B2FF")) +  
+  labs(title = "Duración de viaje promedio por tipo de usuario",
+       x = "Tipo de usuario",
+       y = "Duración promedio de viaje",
+       fill = "Tipo de usuario") +
+  scale_y_continuous(limits = c(0,20))
 ```
 
 ## Distancia de viaje
@@ -137,5 +168,6 @@ tipo_bicicleta_por_tipo_usuario <- cyclistic_data %>%
   group_by(member_casual, rideable_type) %>% 
   summarise(count = n())
 ```
+
 
 </div>
