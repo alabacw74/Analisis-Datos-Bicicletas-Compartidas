@@ -324,12 +324,12 @@ cyclistic_data <- separate(cyclistic_data, "ended_at",
 ### Convertimos fecha_inicio, fecha_finalizacion, hora_inicio_ hora finalizacion
 
 ```{r}
-cyclistic_data %>% 
-  mutate(cyclistic_data,
-         fecha_inicio = ymd(fecha_inicio),
-         fecha_finalizacion = ymd(fecha_finalizacion),
-         hora_inicio = as.POSIXct(hora_inicio, format= "%H:%M:%S"),
-         hora_finalizacion = as.POSIXct(hora_inicio, format= "%H:%M:%S"))
+cyclistic_data <- cyclistic_data %>% 
+  mutate(
+    hora_inicio = as.POSIXct(hora_inicio, format = "%H:%M:%S"),
+    hora_finalizacion = as.POSIXct(hora_finalizacion, format = "%H:%M:%S"),
+    duracion_viaje = as.numeric(difftime(hora_finalizacion, hora_inicio, units = "mins"))
+  )
 ```
 
 ### Procesamiento de datos nulos
