@@ -274,12 +274,19 @@ cyclistic_data <- separate(cyclistic_data, "ended_at",
 ### Convertimos fecha_inicio, fecha_finalizacion, hora_inicio_ hora finalizacion
 
 ```{r}
+cyclistic_data <- cyclistic_data %>% 
+  mutate(
+    hora_inicio = as.POSIXct(hora_inicio, format = "%H:%M:%S"),
+    hora_finalizacion = as.POSIXct(hora_finalizacion, format = "%H:%M:%S"),
+    duracion_viaje = as.numeric(difftime(hora_finalizacion, hora_inicio, units = "mins"))
+  )
+
+```
+### Verificamos categorias existentes en las variables
+
+```{r}
 cyclistic_data %>% 
-  mutate(cyclistic_data,
-         fecha_inicio = ymd(fecha_inicio),
-         fecha_finalizacion = ymd(fecha_finalizacion),
-         hora_inicio = as.POSIXct(hora_inicio, format= "%H:%M:%S"),
-         hora_finalizacion = as.POSIXct(hora_inicio, format= "%H:%M:%S"))
+  distinct(member_casual)
 ```
 
 ### Procesamiento de datos nulos
@@ -349,7 +356,7 @@ proporcionar información útil sobre el tipo de miembro.
 
 ```{r}
 # Nombre de tu data frame
-nombre_data_frame <- conjunto_datos
+nombre_data_frame <- cyclistic_data
 
 # Verificar si hay duplicados en el data frame
 hay_duplicados <- any(duplicated(nombre_data_frame))
