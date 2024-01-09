@@ -47,7 +47,7 @@ cyclistic_data <- readRDS("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/cyclis
 ## Conteo de cada tipo de usuario
 
 ```{r}
-cyclistic_data %>%
+conteo_tipo_usuario <- cyclistic_data %>%
   filter(!is.na(member_casual)) %>%
   group_by(member_casual) %>%
   summarise(count = n())
@@ -62,7 +62,7 @@ esperaría que los suscriptores anuales tengan un tiempo promedio de viaje
 mayor al de los miembros casuales. Vamos a verificarlo:
 
 ```{r}
-cyclistic_data %>% 
+duracion_viaje_por_tipo <- cyclistic_data %>% 
   select(member_casual, duracion_viaje) %>% 
   group_by(member_casual) %>% 
   drop_na() %>% 
@@ -74,14 +74,68 @@ cyclistic_data %>%
 Veamos la relación que hay entre la distancia que se recorre y el tipo de
 miembro
 
-```{r}
-cyclistic_data %>% 
+```{r warning=FALSE, message=FALSE}
+distancia_viaje_por_tipo <- cyclistic_data %>% 
   select(member_casual, distancia_viaje) %>% 
   group_by(member_casual) %>% 
   summarise(promedio_distancia = mean(distancia_viaje))
 ```
 
+## Número de pasajeros por día de la semana
+
+```{r warning=FALSE, message=FALSE}
+num_viaje_por_dia_tipo <- cyclistic_data %>%
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>%
+  summarise(count = n())
+
+```
+
+## Tiempo de viaje por tipo de usuario cada día de la semana
+
+```{r warning=FALSE, message=FALSE}
+tiempo_viaje_por_dia_tipo <- cyclistic_data %>% 
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>% 
+  summarise(duracion_promedio = mean(duracion_viaje))
+```
+
+## Conteo de viajes por tipo de usuario agrupados por mes
+
+```{r warning=FALSE, message=FALSE}
+num_viaje_por_mes_tipo <- cyclistic_data %>% 
+  group_by(member_casual, viajes_mes = month(fecha_inicio)) %>% 
+  summarise(count = n())
+```
 
 
+## Distancia de viaje por tipo de usuario cada día de la semana
+
+```{r warning=FALSE, message=FALSE}
+ditancia_viaje_por_dia_tipo <- cyclistic_data %>% 
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>% 
+  summarise(distancia_promedio = mean(distancia_viaje))
+```
+
+## Tipos de bicicletas
+
+```{r warning=FALSE, message=FALSE}
+cyclistic_data %>% 
+  distinct(rideable_type)
+```
+### Conteo de tipo de bicicleta
+
+```{r warning=FALSE, message=FALSE}
+conteo_tipo_bicicleta <- cyclistic_data %>%
+  filter(!is.na(rideable_type)) %>%
+  group_by(rideable_type) %>%
+  summarise(count = n())
+```
+### Tipo de bicicleta y tipo de usuario
+
+```{r warning=FALSE, message=FALSE}
+tipo_bicicleta_por_tipo_usuario <- cyclistic_data %>% 
+  select(member_casual, rideable_type) %>% 
+  group_by(member_casual, rideable_type) %>% 
+  summarise(count = n())
+```
 
 </div>
