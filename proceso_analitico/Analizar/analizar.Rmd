@@ -28,5 +28,60 @@ sección utilizaremos herramientas estadísticas que nos permitan conocer el
 comportamiento diferenciado entre los miembros casuales y suscriptores anuales
 del sistema de prestamo de bicicletas.
 
+En esta fase no presentaremos una discusión sobre los resultados obtenidos, 
+solo se mencionarán algunas premisas y se presentaran los resultados. En
+la siguiente fase se realizara una discusión y exposición de lo encontrado.
+
+## Cargar entorno de trabajo
+
+```{r}
+library(tidyverse)
+```
+
+## Importar nuestro conjunto de datos
+
+```{r}
+cyclistic_data <- readRDS("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/cyclistic_data.rds")
+```
+
+## Conteo de cada tipo de usuario
+
+```{r}
+cyclistic_data %>%
+  filter(!is.na(member_casual)) %>%
+  group_by(member_casual) %>%
+  summarise(count = n())
+```
+
+
+## Duración de viaje
+
+Una de las premisas que se tienen sobre las diferencias entre los tipos de
+usuarios es que se caracterizan por tener tiempos de viaje diferentes. Se
+esperaría que los suscriptores anuales tengan un tiempo promedio de viaje
+mayor al de los miembros casuales. Vamos a verificarlo:
+
+```{r}
+cyclistic_data %>% 
+  select(member_casual, duracion_viaje) %>% 
+  group_by(member_casual) %>% 
+  drop_na() %>% 
+  summarise(tiempo_promedio_viaje = mean(duracion_viaje))
+```
+
+## Distancia de viaje
+
+Veamos la relación que hay entre la distancia que se recorre y el tipo de
+miembro
+
+```{r}
+cyclistic_data %>% 
+  select(member_casual, distancia_viaje) %>% 
+  group_by(member_casual) %>% 
+  summarise(promedio_distancia = mean(distancia_viaje))
+```
+
+
+
 
 </div>
