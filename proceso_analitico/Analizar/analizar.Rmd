@@ -221,10 +221,26 @@ ggplot(data = tiempo_viaje_por_dia_tipo) +
 
 ```{r warning=FALSE, message=FALSE}
 num_viaje_por_mes_tipo <- cyclistic_data %>% 
-  group_by(member_casual, viajes_mes = month(fecha_inicio)) %>% 
+  group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE)) %>%
   summarise(count = n())
 ```
 
+### Creamos la visualización
+
+```{r}
+ggplot(data = num_viaje_por_mes_tipo) +
+  geom_col(mapping = aes(x = viajes_mes, y = count, fill = viajes_mes)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Número de viajes mensuales",
+       subtitle = "Por tipo de usuario",
+       x = "Mes",
+       y = "Número de viajes (miles)",
+       fill = "Mes del año") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3),
+                     breaks = seq(0, 350000, by = 50000))
+
+```
 
 ## Distancia de viaje por tipo de usuario cada día de la semana
 
