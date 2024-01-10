@@ -184,6 +184,39 @@ tiempo_viaje_por_dia_tipo <- cyclistic_data %>%
   summarise(duracion_promedio = mean(duracion_viaje))
 ```
 
+### Ordenando dias de la semana
+
+```{r}
+tiempo_viaje_por_dia_tipo$viajes_dia_semana <-
+  factor(tiempo_viaje_por_dia_tipo$viajes_dia_semana,
+         levels = c("lunes",
+                    "martes",
+                    "miércoles",
+                    "jueves",
+                    "viernes",
+                    "sábado",
+                    "domingo"), ordered = TRUE)
+
+tiempo_viaje_por_dia_tipo <- tiempo_viaje_por_dia_tipo[order(tiempo_viaje_por_dia_tipo$viajes_dia_semana),]
+
+head(tiempo_viaje_por_dia_tipo)
+
+
+```
+### Visualizamos
+
+```{r}
+ggplot(data = tiempo_viaje_por_dia_tipo) +
+  geom_col(mapping = aes(x = viajes_dia_semana, y = duracion_promedio, fill = viajes_dia_semana)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Duración promedio de viajes diarios",
+       subtitle = "Por tipo de usuario",
+       x = "Día de la semana",
+       y = "Duración del viaje (min)",
+       fill = "Día de la semana") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 ## Conteo de viajes por tipo de usuario agrupados por mes
 
 ```{r warning=FALSE, message=FALSE}
