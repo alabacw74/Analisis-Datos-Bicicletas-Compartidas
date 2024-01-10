@@ -145,34 +145,35 @@ num_viaje_por_dia_tipo <- cyclistic_data %>%
 ```
 
 ```{r}
+num_viaje_por_dia_tipo$viajes_dia_semana <-
+  factor(num_viaje_por_dia_tipo$viajes_dia_semana,
+         levels = c("lunes",
+                    "martes",
+                    "miércoles",
+                    "jueves",
+                    "viernes",
+                    "sábado",
+                    "domingo"), ordered = TRUE)
+
+num_viaje_por_dia_tipo <- num_viaje_por_dia_tipo[order(num_viaje_por_dia_tipo$viajes_dia_semana),]
+
+head(num_viaje_por_dia_tipo)
+
+
+```
+
+```{r}
 ggplot(data = num_viaje_por_dia_tipo) +
-  geom_col(mapping = aes(x = viajes_dia_semana, y = count,
-                           fill=viajes_dia_semana)) +
-   facet_wrap(~member_casual) +
-   labs(title = "Conteo de viajes diarios",
-        subtitle = "Por tipo de usuario",
-        x = "Día de la semana",
-        y = "Número de viajes",
-        fill = "Día de la semana") 
-  scale_y_continuous(limits)+
+  geom_col(mapping = aes(x = viajes_dia_semana, y = count, fill = viajes_dia_semana)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Conteo de viajes diarios",
+       subtitle = "Por tipo de usuario",
+       x = "Día de la semana",
+       y = "Número de viajes (miles)",
+       fill = "Día de la semana") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3))
 
-
-labs(title = "Distancia de viaje promedio por tipo de usuario",
-       x = "Tipo de usuario",
-       y = "Distancia promedio de viaje (km)",
-       fill = "Tipo de usuario") +
-  scale_y_continuous(limits = c(0, 3),
-                     breaks = seq(0, 3, by = 0.5)) +
-  annotate("text",
-           x=1, y=2,
-           label= "2.6 km",
-           color="black",
-           fontface="bold",size=4.5) +
-  annotate("text",
-           x=2, y=2,
-           label= "2.4 km",
-           color="black",
-           fontface="bold",size=4.5)
 ```
 
 ## Tiempo de viaje por tipo de usuario cada día de la semana
