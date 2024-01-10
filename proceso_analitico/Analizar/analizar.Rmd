@@ -95,10 +95,11 @@ ggplot(data = duracion_viaje_por_tipo) +
   scale_fill_manual(values = c("casual" = "#FF9999", "member" = "#66B2FF")) +  
   labs(title = "Duración de viaje promedio por tipo de usuario",
        x = "Tipo de usuario",
-       y = "Duración promedio de viaje",
+       y = "Duración promedio de viaje (min)",
        fill = "Tipo de usuario") +
   scale_y_continuous(limits = c(0,20))
 ```
+
 
 ## Distancia de viaje
 
@@ -112,6 +113,28 @@ distancia_viaje_por_tipo <- cyclistic_data %>%
   summarise(promedio_distancia = mean(distancia_viaje))
 ```
 
+```{r}
+ggplot(data = distancia_viaje_por_tipo) +
+  geom_col(mapping = aes(x=member_casual, y=promedio_distancia/1000,
+                         fill=member_casual)) +
+  scale_fill_manual(values = c("casual" = "#FF9999", "member" = "#66B2FF")) +  
+  labs(title = "Distancia de viaje promedio por tipo de usuario",
+       x = "Tipo de usuario",
+       y = "Distancia promedio de viaje (km)",
+       fill = "Tipo de usuario") +
+  scale_y_continuous(limits = c(0, 3),
+                     breaks = seq(0, 3, by = 0.5)) +
+  annotate("text",
+           x=1, y=2,
+           label= "2.6 km",
+           color="black",
+           fontface="bold",size=4.5) +
+  annotate("text",
+           x=2, y=2,
+           label= "2.4 km",
+           color="black",
+           fontface="bold",size=4.5)
+```
 ## Número de pasajeros por día de la semana
 
 ```{r warning=FALSE, message=FALSE}
@@ -119,6 +142,37 @@ num_viaje_por_dia_tipo <- cyclistic_data %>%
   group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>%
   summarise(count = n())
 
+```
+
+```{r}
+ggplot(data = num_viaje_por_dia_tipo) +
+  geom_col(mapping = aes(x = viajes_dia_semana, y = count,
+                           fill=viajes_dia_semana)) +
+   facet_wrap(~member_casual) +
+   labs(title = "Conteo de viajes diarios",
+        subtitle = "Por tipo de usuario",
+        x = "Día de la semana",
+        y = "Número de viajes",
+        fill = "Día de la semana") 
+  scale_y_continuous(limits)+
+
+
+labs(title = "Distancia de viaje promedio por tipo de usuario",
+       x = "Tipo de usuario",
+       y = "Distancia promedio de viaje (km)",
+       fill = "Tipo de usuario") +
+  scale_y_continuous(limits = c(0, 3),
+                     breaks = seq(0, 3, by = 0.5)) +
+  annotate("text",
+           x=1, y=2,
+           label= "2.6 km",
+           color="black",
+           fontface="bold",size=4.5) +
+  annotate("text",
+           x=2, y=2,
+           label= "2.4 km",
+           color="black",
+           fontface="bold",size=4.5)
 ```
 
 ## Tiempo de viaje por tipo de usuario cada día de la semana
