@@ -257,6 +257,30 @@ ggplot(data = distancia_viaje_por_dia_tipo) +
   scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), oob = scales::squish)
 
 ```
+## Distancia promedio de viaje por tipo de usuario agrupados por mes
+
+```{r warning=FALSE, message=FALSE}
+distancia_viaje_por_mes_tipo <- cyclistic_data %>% 
+  group_by(member_casual, mes = month(fecha_inicio, label= TRUE)) %>% 
+  summarise(distancia_promedio = mean(distancia_viaje)/1000)
+```
+### Creamos la visualizacion
+
+```{r}
+ggplot(data = distancia_viaje_por_mes_tipo) +
+  geom_col(mapping = aes(x = mes, y = distancia_promedio, fill = mes)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Distancia promedio de viajes mensuales",
+       subtitle = "Por tipo de usuario",
+       x = "Mes",
+       y = "Distancia promedio (km)",
+       fill = "Mes del año") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), oob = scales::squish)
+
+
+
+```
 
 ## Conteo de viajes por tipo de usuario agrupados por mes
 
