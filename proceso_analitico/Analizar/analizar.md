@@ -27,7 +27,9 @@ library(tidyverse)
 cyclistic_data <- readRDS("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/cyclistic_data.rds")
 ```
 
-<!-- Agregar imagenes tibble_conjunto_datos_0* -->
+![Conjunto de datos de Cyclistic (Procesados)](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conjunto_datos_01.png)
+
+![Conjunto de datos de Cyclistic (Procesados)](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conjunto_datos_02.png)
 
 Como primer punto de analisís nos enfocaremos en encontrar las proporciones
 de usuarios de tipo `member` para los que cuentan con una suscripción anual y de
@@ -41,7 +43,7 @@ conteo_tipo_usuario <- cyclistic_data %>%
   summarise(count = n())
 ```
 
-<!--Agregar imagen tibble_conteo_tipo_usuario-->
+![Conteo de usuarios por tipo de suscripción](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conteo_tipo_usuario.png)
 
 ### Visualización
 
@@ -94,6 +96,7 @@ duracion_viaje_por_tipo <- cyclistic_data %>%
   summarise(tiempo_promedio_viaje = mean(duracion_viaje))
 ```
 <!-- Agregar imagen tibble_tiempo_promedio_viaje_por_tipo_usuario.png -->
+![Duración promedio de viaje por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_tiempo_promedio_viaje_por_tipo_usuario.png)
 
 ### Visualización
 
