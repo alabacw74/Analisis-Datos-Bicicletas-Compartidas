@@ -254,35 +254,24 @@ a los data frames correspondientes almacenados en `lista_dataframes`.
 conjunto_datos <- bind_rows(lista_dataframes)
 str(conjunto_datos)
 ```
-### Separar started_at y enden_at
 
-Deseamos generar columnas separadas tanto para la fecha como para la hora de
-inicio y finalización del viaje, eso se logra con los siguientes bloques de
-código
+### Obtenemos la duracion del viaje
 
-```{r}
-cyclistic_data <- separate(conjunto_datos, "started_at",
-                           into=c("fecha_inicio", "hora_inicio"),
-                           sep=" ")
-```
-
-```{r}
-cyclistic_data <- separate(cyclistic_data, "ended_at",
-                           into=c("fecha_finalizacion", "hora_finalizacion"),
-                           sep=" ")
-```
-### Convertimos fecha_inicio, fecha_finalizacion, hora_inicio_ hora finalizacion
+Es importante primero obtener la duración del viaje y después separar las
+variables de fecha_inicio, hora_inicio, fecha_finalizacion y hora_finalizacion.
+Invertir el orden provoca que sea mas complicado sacar las diferencias de
+tiempo ya que separarlas solo toma en cuenta las horas, pero pudieron existir
+viajes que ocurrieron en dias diferentes provocando que las diferencias de hora
+sean negativas. Realizamos posteriormente la separación de started_at y 
+ended_at 
 
 ```{r}
-cyclistic_data <- cyclistic_data %>% 
+cyclistic_data <- conjunto_datos %>% 
   mutate(
-    fecha_inicio = as.Date(fecha_inicio),
-    fecha_finalizacion = as.Date(fecha_finalizacion),
-    hora_inicio = as.POSIXct(hora_inicio, format = "%H:%M:%S"),
-    hora_finalizacion = as.POSIXct(hora_finalizacion, format = "%H:%M:%S"),
-    duracion_viaje = as.numeric(difftime(hora_finalizacion, hora_inicio, units = "mins"))
-  )
-
+    duracion_viaje = as.numeric(difftime(ended_at, started_at, units = "mins"))
+  ) %>% 
+  separate(started_at, into = c("fecha_inicio", "hora_inicio"), sep = " ") %>%
+  separate(ended_at, into = c("fecha_finalizacion", "hora_finalizacion"), sep = " ")
 ```
 
 ### Verificar consistencia de los datos
