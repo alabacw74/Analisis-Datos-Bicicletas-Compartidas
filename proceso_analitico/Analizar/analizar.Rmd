@@ -134,7 +134,8 @@ grafico_distancia_viaje_por_tipo <- ggplot(data = distancia_viaje_por_tipo) +
   labs(title = "Distancia de viaje promedio por tipo de usuario",
        x = "Tipo de usuario",
        y = "Distancia promedio de viaje (km)",
-       fill = "Tipo de usuario") +
+       fill = "Tipo de usuario",
+       caption = "alabacw74 / Datos de divybykes") +
   scale_y_continuous(limits = c(0, 3),
                      breaks = seq(0, 3, by = 0.5)) +
   annotate("text",
@@ -193,7 +194,8 @@ grafico_conteo_viajes_diarios_por_tipo <- ggplot(data = num_viaje_por_dia_tipo) 
        subtitle = "Por tipo de usuario",
        x = "Día de la semana",
        y = "Número de viajes (miles)",
-       fill = "Día de la semana") +
+       fill = "Día de la semana",
+       caption = "alabacw74 / Datos de divybykes") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(labels = scales::number_format(scale = 1e-3))
 
@@ -243,7 +245,8 @@ grafico_duracion_viaje_por_tipo <- ggplot(data = tiempo_viaje_por_dia_tipo) +
        subtitle = "Por tipo de usuario",
        x = "Día de la semana",
        y = "Duración del viaje (min)",
-       fill = "Día de la semana") +
+       fill = "Día de la semana",
+       caption = "alabacw74 / Datos de divybykes") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 grafico_duracion_viaje_por_tipo
@@ -295,7 +298,8 @@ grafico_distancia_promedio_viajes_diarios_por_tipo <-
        subtitle = "Por tipo de usuario",
        x = "Día de la semana",
        y = "Distancia del viaje (km)",
-       fill = "Día de la semana") +
+       fill = "Día de la semana",
+       caption = "alabacw74 / Datos de divybykes") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
   scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), oob = scales::squish)
 
@@ -328,7 +332,8 @@ grafico_distancia_promedio_viajes_mensuales_por_tipo <-
        subtitle = "Por tipo de usuario",
        x = "Mes",
        y = "Distancia promedio (km)",
-       fill = "Mes del año") +
+       fill = "Mes del año",
+       caption = "alabacw74 / Datos de divybykes") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), 
                      oob = scales::squish)
@@ -363,7 +368,8 @@ grafico_conteo_viajes_mensuales_por_tipo <-
        subtitle = "Por tipo de usuario",
        x = "Mes",
        y = "Número de viajes (miles)",
-       fill = "Mes del año") +
+       fill = "Mes del año",
+       caption = "alabacw74 / Datos de divybykes") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(labels = scales::number_format(scale = 1e-3),
                      breaks = seq(0, 350000, by = 50000))
@@ -412,7 +418,8 @@ grafico_preferencias_bicicletas <- ggplot(data=tipo_bicicleta_por_tipo_usuario) 
        subtitle = "Por tipo de usuario",
        x = "Tipo de bicicleta",
        y = "Número de usuarios (x1000)",
-       fill = "Tipo de bicicletas") +
+       fill = "Tipo de bicicletas",
+       caption = "alabacw74 / Datos de divybykes") +
   scale_y_continuous(labels = scales::number_format(scale = 1e-3))
 
 grafico_preferencias_bicicletas
