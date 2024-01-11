@@ -56,24 +56,21 @@ conteo_tipo_usuario <- cyclistic_data %>%
 ### Visualización
 
 ```{r warning=FALSE, message=FALSE}
-# Porcentaje de cada tipo de usuario
-porcentaje_tipo_usuario <- (conteo_tipo_usuario$count / sum(conteo_tipo_usuario$count)) * 100
-
-# Colores personalizados
-colores <- c("#FF9999", "#66B2FF")
-
-# Crear el gráfico circular con porcentajes (usando ggplot2)
-library(ggplot2)
-pie_chart <- ggplot(data = conteo_tipo_usuario, aes(x = "", y = count, fill = member_casual)) +
+# Crear un gráfico circular con ggplot2
+grafico_porcentaje_tipo_usuario <- ggplot(conteo_tipo_usuario, aes(x = "", y = count, fill = member_casual)) +
   geom_bar(stat = "identity", width = 1, color = "white") +
-  coord_polar("y") +
+  coord_polar("y", start = 0) +
+  ggtitle("Porcentaje de cada tipo de usuario") +
+  labs(caption="alabacw74 / Datos de divybykes") +
   theme_void() +
-  scale_fill_manual(values = colores) +
-  labs(title = "Porcentaje de cada tipo de usuario", sub = "Subtítulo aquí")
+  theme(legend.position = "none") +
+  geom_text(aes(label = paste0(member_casual, ": ", scales::percent(count/sum(count)))), position = position_stack(vjust = 0.5))
 
-# Guardar el gráfico
-ggsave("pie_chart.png", pie_chart, width = 6, height = 6, units = "in")
-
+# Guardar el gráfico con ggsave
+ggsave("Grafico_porcentaje_tipo_usuario.jpeg",
+       plot = grafico_porcentaje_tipo_usuario,
+       path = "~/Desktop/Analisis_de_datos/",
+       device = "jpeg")
 ```
 
 
@@ -95,15 +92,25 @@ duracion_viaje_por_tipo <- cyclistic_data %>%
 ### Visualizacion
 
 ```{r}
-ggplot(data = duracion_viaje_por_tipo) +
+grafico_duracion_viaje_por_tipo <- ggplot(data = duracion_viaje_por_tipo) +
   geom_col(mapping = aes(x=member_casual, y=tiempo_promedio_viaje,
                          fill=member_casual)) +
   scale_fill_manual(values = c("casual" = "#FF9999", "member" = "#66B2FF")) +  
   labs(title = "Duración de viaje promedio por tipo de usuario",
        x = "Tipo de usuario",
        y = "Duración promedio de viaje (min)",
-       fill = "Tipo de usuario") +
+       fill = "Tipo de usuario",
+       caption = "alabacw74 / Datos de divybykes") +
   scale_y_continuous(limits = c(0,20))
+
+grafico_duracion_viaje_por_tipo
+```
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_duracion_viaje_por_tipo.jpeg",
+       plot = grafico_duracion_viaje_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
 ```
 
 
@@ -120,7 +127,7 @@ distancia_viaje_por_tipo <- cyclistic_data %>%
 ```
 
 ```{r}
-ggplot(data = distancia_viaje_por_tipo) +
+grafico_distancia_viaje_por_tipo <- ggplot(data = distancia_viaje_por_tipo) +
   geom_col(mapping = aes(x=member_casual, y=promedio_distancia/1000,
                          fill=member_casual)) +
   scale_fill_manual(values = c("casual" = "#FF9999", "member" = "#66B2FF")) +  
@@ -140,7 +147,17 @@ ggplot(data = distancia_viaje_por_tipo) +
            label= "2.4 km",
            color="black",
            fontface="bold",size=4.5)
+
+grafico_distancia_viaje_por_tipo
 ```
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_distancia_viaje_por_tipo.jpeg",
+       plot = grafico_distancia_viaje_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
+
 ## Número de pasajeros por día de la semana
 
 ```{r warning=FALSE, message=FALSE}
@@ -169,7 +186,7 @@ head(num_viaje_por_dia_tipo)
 ```
 
 ```{r}
-ggplot(data = num_viaje_por_dia_tipo) +
+grafico_conteo_viajes_diarios_por_tipo <- ggplot(data = num_viaje_por_dia_tipo) +
   geom_col(mapping = aes(x = viajes_dia_semana, y = count, fill = viajes_dia_semana)) +
   facet_wrap(~member_casual) +
   labs(title = "Conteo de viajes diarios",
@@ -180,6 +197,15 @@ ggplot(data = num_viaje_por_dia_tipo) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(labels = scales::number_format(scale = 1e-3))
 
+grafico_conteo_viajes_diarios_por_tipo
+```
+
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_conteo_viajes_diarios_por_tipo.jpeg",
+       plot = grafico_conteo_viajes_diarios_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
 ```
 
 ## Tiempo de viaje por tipo de usuario cada día de la semana
@@ -210,7 +236,7 @@ head(tiempo_viaje_por_dia_tipo)
 ### Visualizamos
 
 ```{r}
-ggplot(data = tiempo_viaje_por_dia_tipo) +
+grafico_duracion_viaje_por_tipo <- ggplot(data = tiempo_viaje_por_dia_tipo) +
   geom_col(mapping = aes(x = viajes_dia_semana, y = duracion_promedio, fill = viajes_dia_semana)) +
   facet_wrap(~member_casual) +
   labs(title = "Duración promedio de viajes diarios",
@@ -220,7 +246,16 @@ ggplot(data = tiempo_viaje_por_dia_tipo) +
        fill = "Día de la semana") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+grafico_duracion_viaje_por_tipo
 ```
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_duracion_viajes_diarios_por_tipo.jpeg",
+       plot = grafico_duracion_viaje_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
+
 ## Distancia de viaje por tipo de usuario cada día de la semana
 
 ```{r warning=FALSE, message=FALSE}
@@ -251,8 +286,10 @@ head(distancia_viaje_por_dia_tipo)
 ### Visualizamos
 
 ```{r}
-ggplot(data = distancia_viaje_por_dia_tipo) +
-  geom_col(mapping = aes(x = viajes_dia_semana, y = distancia_promedio/1000, fill = viajes_dia_semana)) +
+grafico_distancia_promedio_viajes_diarios_por_tipo <- 
+  ggplot(data = distancia_viaje_por_dia_tipo) +
+  geom_col(mapping = aes(x = viajes_dia_semana,
+                         y = distancia_promedio/1000, fill = viajes_dia_semana)) +
   facet_wrap(~member_casual) +
   labs(title = "Distancia promedio de viajes diarios",
        subtitle = "Por tipo de usuario",
@@ -262,7 +299,17 @@ ggplot(data = distancia_viaje_por_dia_tipo) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
   scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), oob = scales::squish)
 
+grafico_distancia_promedio_viajes_diarios_por_tipo
 ```
+
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg",
+       plot = grafico_distancia_promedio_viajes_diarios_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
+
 ## Distancia promedio de viaje por tipo de usuario agrupados por mes
 
 ```{r warning=FALSE, message=FALSE}
@@ -273,7 +320,8 @@ distancia_viaje_por_mes_tipo <- cyclistic_data %>%
 ### Creamos la visualizacion
 
 ```{r}
-ggplot(data = distancia_viaje_por_mes_tipo) +
+grafico_distancia_promedio_viajes_mensuales_por_tipo <-
+  ggplot(data = distancia_viaje_por_mes_tipo) +
   geom_col(mapping = aes(x = mes, y = distancia_promedio, fill = mes)) +
   facet_wrap(~member_casual) +
   labs(title = "Distancia promedio de viajes mensuales",
@@ -282,10 +330,18 @@ ggplot(data = distancia_viaje_por_mes_tipo) +
        y = "Distancia promedio (km)",
        fill = "Mes del año") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), oob = scales::squish)
+  scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), 
+                     oob = scales::squish)
 
+grafico_distancia_promedio_viajes_mensuales_por_tipo
+```
 
-
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_distancia_promedio_viajes_mensuales_por_tipo.jpeg",
+       plot = grafico_distancia_promedio_viajes_mensuales_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
 ```
 
 ## Conteo de viajes por tipo de usuario agrupados por mes
@@ -299,7 +355,8 @@ num_viaje_por_mes_tipo <- cyclistic_data %>%
 ### Creamos la visualización
 
 ```{r}
-ggplot(data = num_viaje_por_mes_tipo) +
+grafico_conteo_viajes_mensuales_por_tipo <- 
+  ggplot(data = num_viaje_por_mes_tipo) +
   geom_col(mapping = aes(x = viajes_mes, y = count, fill = viajes_mes)) +
   facet_wrap(~member_casual) +
   labs(title = "Número de viajes mensuales",
@@ -311,10 +368,16 @@ ggplot(data = num_viaje_por_mes_tipo) +
   scale_y_continuous(labels = scales::number_format(scale = 1e-3),
                      breaks = seq(0, 350000, by = 50000))
 
+grafico_conteo_viajes_mensuales_por_tipo
 ```
 
-
-
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_conteo_viajes_mensuales_por_tipo.jpeg",
+       plot = grafico_conteo_viajes_mensuales_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
 ## Tipos de bicicletas
 
 ```{r warning=FALSE, message=FALSE}
@@ -330,8 +393,6 @@ conteo_tipo_bicicleta <- cyclistic_data %>%
   summarise(count = n())
 ```
 
-
-
 ### Tipo de bicicleta y tipo de usuario
 
 ```{r warning=FALSE, message=FALSE}
@@ -344,7 +405,7 @@ tipo_bicicleta_por_tipo_usuario <- cyclistic_data %>%
 #### Visualizamos
 
 ```{r}
-ggplot(data=tipo_bicicleta_por_tipo_usuario) +
+grafico_preferencias_bicicletas <- ggplot(data=tipo_bicicleta_por_tipo_usuario) +
   geom_col(mapping = aes(x=rideable_type, y=count, fill=rideable_type)) +
   facet_wrap(~member_casual) +
   labs(title = "Bicicletas preferidas",
@@ -353,7 +414,16 @@ ggplot(data=tipo_bicicleta_por_tipo_usuario) +
        y = "Número de usuarios (x1000)",
        fill = "Tipo de bicicletas") +
   scale_y_continuous(labels = scales::number_format(scale = 1e-3))
+
+grafico_preferencias_bicicletas
   
 ```
 
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_preferencias_bicicletas.jpeg",
+       plot = grafico_preferencias_bicicletas,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
 </div>
