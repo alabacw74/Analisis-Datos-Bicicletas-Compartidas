@@ -42,6 +42,7 @@ library(tidyverse)
 
 ```{r}
 cyclistic_data <- readRDS("~/Desktop/Analisis_de_datos/Cyclistic_Datasets/cyclistic_data.rds")
+head(cyclistic_data)
 ```
 
 ## Conteo de cada tipo de usuario
@@ -51,6 +52,8 @@ conteo_tipo_usuario <- cyclistic_data %>%
   filter(!is.na(member_casual)) %>%
   group_by(member_casual) %>%
   summarise(count = n())
+
+tibble(conteo_tipo_usuario)
 ```
 
 ### Visualización
@@ -65,6 +68,8 @@ grafico_porcentaje_tipo_usuario <- ggplot(conteo_tipo_usuario, aes(x = "", y = c
   theme_void() +
   theme(legend.position = "none") +
   geom_text(aes(label = paste0(member_casual, ": ", scales::percent(count/sum(count)))), position = position_stack(vjust = 0.5))
+
+grafico_porcentaje_tipo_usuario
 
 # Guardar el gráfico con ggsave
 ggsave("Grafico_porcentaje_tipo_usuario.jpeg",
@@ -87,6 +92,8 @@ duracion_viaje_por_tipo <- cyclistic_data %>%
   group_by(member_casual) %>% 
   drop_na() %>% 
   summarise(tiempo_promedio_viaje = mean(duracion_viaje))
+
+head(duracion_viaje_por_tipo)
 ```
 
 ### Visualizacion
@@ -124,6 +131,8 @@ distancia_viaje_por_tipo <- cyclistic_data %>%
   select(member_casual, distancia_viaje) %>% 
   group_by(member_casual) %>% 
   summarise(promedio_distancia = mean(distancia_viaje))
+
+head(distancia_viaje_por_tipo)
 ```
 
 ```{r}
@@ -157,6 +166,14 @@ ggsave("Grafico_distancia_viaje_por_tipo.jpeg",
        plot = grafico_distancia_viaje_por_tipo,
        path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
        device = "jpeg")
+```
+
+## Distancia vs tiempo por tipo de usuario
+
+```{r}
+ggplot(data=cyclistic_data) +
+  geom_point(mapping = aes(x = duracion_viaje, distancia_viaje,
+                           color=member_casual))
 ```
 
 ## Número de pasajeros por día de la semana
