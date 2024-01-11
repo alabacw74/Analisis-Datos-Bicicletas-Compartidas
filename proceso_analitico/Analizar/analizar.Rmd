@@ -55,19 +55,25 @@ conteo_tipo_usuario <- cyclistic_data %>%
 
 ### Visualización
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 # Porcentaje de cada tipo de usuario
 porcentaje_tipo_usuario <- (conteo_tipo_usuario$count / sum(conteo_tipo_usuario$count)) * 100
 
 # Colores personalizados
 colores <- c("#FF9999", "#66B2FF")
 
-# Crear el gráfico circular con porcentajes
-pie(porcentaje_tipo_usuario, 
-    labels = paste0(conteo_tipo_usuario$member_casual, ": ", round(porcentaje_tipo_usuario, 1), "%"),
-    main = "Porcentaje de cada tipo de usuario",
-    col = colores
-)
+# Crear el gráfico circular con porcentajes (usando ggplot2)
+library(ggplot2)
+pie_chart <- ggplot(data = conteo_tipo_usuario, aes(x = "", y = count, fill = member_casual)) +
+  geom_bar(stat = "identity", width = 1, color = "white") +
+  coord_polar("y") +
+  theme_void() +
+  scale_fill_manual(values = colores) +
+  labs(title = "Porcentaje de cada tipo de usuario", sub = "Subtítulo aquí")
+
+# Guardar el gráfico
+ggsave("pie_chart.png", pie_chart, width = 6, height = 6, units = "in")
+
 ```
 
 
