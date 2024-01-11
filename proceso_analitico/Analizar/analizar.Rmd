@@ -323,6 +323,9 @@ conteo_tipo_bicicleta <- cyclistic_data %>%
   group_by(rideable_type) %>%
   summarise(count = n())
 ```
+
+
+
 ### Tipo de bicicleta y tipo de usuario
 
 ```{r warning=FALSE, message=FALSE}
@@ -332,5 +335,19 @@ tipo_bicicleta_por_tipo_usuario <- cyclistic_data %>%
   summarise(count = n())
 ```
 
+#### Visualizamos
+
+```{r}
+ggplot(data=tipo_bicicleta_por_tipo_usuario) +
+  geom_col(mapping = aes(x=rideable_type, y=count, fill=rideable_type)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Bicicletas preferidas",
+       subtitle = "Por tipo de usuario",
+       x = "Tipo de bicicleta",
+       y = "Número de usuarios (x1000)",
+       fill = "Tipo de bicicletas") +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3))
+  
+```
 
 </div>
