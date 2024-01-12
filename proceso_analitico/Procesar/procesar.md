@@ -335,7 +335,9 @@ cyclistic_data <- conjunto_datos %>%
 head(cyclistic_data)
 ```
 
-<!--Agregar imagen tibble_cyclistic_data_0*-->
+![Tibble cyclistic data 01](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_cyclistic_data_01.png)
+
+![Tibble cyclistic data 02](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_cyclistic_data_02.png)
 
 ### Verificar consistencia de los datos
 
