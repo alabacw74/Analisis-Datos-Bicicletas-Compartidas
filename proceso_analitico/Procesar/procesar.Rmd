@@ -271,7 +271,8 @@ cyclistic_data <- conjunto_datos %>%
     duracion_viaje = as.numeric(difftime(ended_at, started_at, units = "mins"))
   ) %>% 
   separate(started_at, into = c("fecha_inicio", "hora_inicio"), sep = " ") %>%
-  separate(ended_at, into = c("fecha_finalizacion", "hora_finalizacion"), sep = " ")
+  separate(ended_at, into = c("fecha_finalizacion", "hora_finalizacion"), sep = " ") %>% 
+  filter(duracion_viaje > 0)
 ```
 
 ### Verificar consistencia de los datos
