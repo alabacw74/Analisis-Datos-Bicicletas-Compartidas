@@ -208,7 +208,7 @@ tratarlos como caracteres. A continuación, se presenta una explicación
 detallada del código:
 
 1. **Definición de la función `convertir_a_character`:**
-```{R}
+```{r}
    convertir_a_character <- function(df) {
      mutate(df, 
             start_station_id = as.character(start_station_id),
@@ -221,7 +221,7 @@ como entrada. Utiliza la función `mutate` del paquete `dplyr` para convertir
 las columnas `start_station_id` y `end_station_id` a tipo character.
 
 2. **Iteración sobre los valores de `j` y `i`:**
-```{R}
+```{r}
    for (j in 20:21) {
      if (j == 20) {
        for (i in 4:11) {
@@ -253,6 +253,7 @@ a los data frames correspondientes almacenados en `lista_dataframes`.
 # Combina todos los data frames en uno solo
 conjunto_datos <- bind_rows(lista_dataframes)
 str(conjunto_datos)
+head(conjunto_datos)
 ```
 
 ### Obtenemos la duracion del viaje
@@ -272,9 +273,14 @@ cyclistic_data <- conjunto_datos %>%
   ) %>% 
   separate(started_at, into = c("fecha_inicio", "hora_inicio"), sep = " ") %>%
   separate(ended_at, into = c("fecha_finalizacion", "hora_finalizacion"), sep = " ") %>% 
-  filter(duracion_viaje > 0)
-```
+  filter(duracion_viaje > 0) %>%
+  mutate(
+    fecha_inicio = ymd(fecha_inicio),
+    fecha_finalizacion = ymd(fecha_finalizacion)
+  )
 
+head(cyclistic_data)
+```
 ### Verificar consistencia de los datos
 
 El proovedor de datos había informado lo siguiente:
@@ -311,13 +317,17 @@ cyclistic_data$distancia_viaje <- distHaversine(cbind(cyclistic_data$start_lng,
 
 # La columna 'distancia_viaje' ahora contiene la distancia haversine en metros 
 # para cada viaje
+head(cyclistic_data)
 ```
 
-Contamos el número de observaciones que tienen una distancia de viaje de cero
+Contamos el número de observaciones que tienen una distancia de viaje de cero o
+una distancia que resulte irrelevante, un viaje menor a 100 m resulta irrelevante
+pues pudo ser provocado por un error en los datos o error en la manera en la 
+que se calcula la distancia
 
 ```{r}
 cyclistic_data %>% 
-  filter(duracion_viaje == 0) %>% 
+  filter(distancia_viaje <= 100) %>% 
   summarise(cantidad = n())
 ```
 
@@ -325,7 +335,50 @@ Eliminamos estas observaciones y las almacenamos en el conjunto de datos
 
 ```{r}
 cyclistic_data <- cyclistic_data %>% 
-  filter(distancia_viaje != 0)
+  filter(distancia_viaje >= 100)
+
+str(cyclistic_data)
+```
+### Verificamos consistencia de los datos
+
+Durante la fase de analisís se hizo notar la existencia de viajes de bicicleta
+con una duración mayor a un día, vamos a revisar estos viajes:
+
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje > 1440 & distancia_viaje > 10000) %>% 
+  arrange(duracion_viaje)
+```
+La salida anterior muestra que existen viajes de más de 10 km con una duración
+de más de un día (un día tiene 1440 minutos). Esto no resulta de un uso 
+cotidiano, pues a una velocidad promedio de 10 km/h se recorrerían estas 
+distancias en mucho menos tiempo. Sugiere que existe un grupo de usuarios que 
+solicita una bicicleta y, en su recorrido, decide detenerse por alguna
+actividad y luego devuelve la bicicleta, añadiendo tiempo a su recorrido. 
+En nuestro caso, dicha actividad se extiende más de 24 horas, por lo que 
+podemos decir que, para fines de nuestro análisis, dicho grupo de usuarios
+debe ser analizado por separado.
+
+Por otro lado, un viaje de 24 horas tampoco resultaría de un uso cotidiano. 
+Se reducirá el área de análisis a viajes con una duración de menos de 600
+minutos, es decir, diez horas. A continuación, se sustenta esta decisión:
+
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje > 600) %>% 
+  arrange(-distancia_viaje)
+```
+
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje < 360) %>% 
+  arrange(-distancia_viaje)
+```
+
+
+```{r}
+cyclistic_data <- cyclistic_data %>% 
+  filter(duracion_viaje < 360)
 ```
 
 ### Verificamos categorias existentes en las variables
@@ -341,22 +394,22 @@ Para poder ver el conjunto de observaciones que cuentan con datos nulos
 ejecutamos el siguiente código:
 
 ``` {r}
-filas_con_nulos <- tu_data_frame[apply(is.na(tu_data_frame), 1, any), ]
+filas_con_nulos <- cyclistic_data[apply(is.na(cyclistic_data), 1, any), ]
 ```
 
-1. `is.na(tu_data_frame)`: Esta expresión crea una matriz booleana del mismo
-tamaño que `tu_data_frame`, donde cada elemento es `TRUE` si el valor 
-correspondiente en `tu_data_frame` es `NA` (nulo), y `FALSE` en caso contrario.
+1. `is.na(cyclistic_data)`: Esta expresión crea una matriz booleana del mismo
+tamaño que `cyclistic_data`, donde cada elemento es `TRUE` si el valor 
+correspondiente en `cyclistic_data` es `NA` (nulo), y `FALSE` en caso contrario.
 
-2. `apply(is.na(tu_data_frame), 1, any)`: La función `apply` se utiliza para 
+2. `apply(is.na(cyclistic_data), 1, any)`: La función `apply` se utiliza para 
 aplicar una función a los márgenes de una matriz o array. En este 
 caso, aplicamos la función `any` a lo largo de las filas (especificado por
 el argumento `1`). La función `any` devuelve `TRUE` si al menos uno de los 
 valores es `TRUE` en cada fila. Esto nos da un vector lógico que indica qué
 filas tienen al menos un valor nulo.
 
-3. `tu_data_frame[apply(is.na(tu_data_frame), 1, any), ]`: Finalmente, 
-utilizamos este vector lógico para seleccionar las filas de `tu_data_frame` 
+3. `cyclistic_data[apply(is.na(cyclistic_data), 1, any), ]`: Finalmente, 
+utilizamos este vector lógico para seleccionar las filas de `cyclistic_data` 
 donde al menos un valor es nulo. Entonces, `filas_con_nulos` contendrá 
 únicamente las filas que tienen datos nulos.
 
@@ -364,7 +417,7 @@ donde al menos un valor es nulo. Entonces, `filas_con_nulos` contendrá
 str(filas_con_nulos)
 ```
 
-Tenemos `234 800` columnas que contienen datos nulos, vamos a verificar 
+Tenemos `206 057` columnas que contienen datos nulos, vamos a verificar 
 el número de nulos en cada una de las columnas
 
 ```{r}

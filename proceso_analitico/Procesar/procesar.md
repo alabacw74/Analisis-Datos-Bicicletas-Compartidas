@@ -299,11 +299,13 @@ un data frame preeliminar llamado `conjunto_datos`.
 ```r
 # Combina todos los data frames en uno solo
 conjunto_datos <- bind_rows(lista_dataframes)
-View(conjunto_datos)
+str(conjunto_datos)
+head(conjunto_datos)
 ```
-### Obtenemos la duracion del viaje
 
-**Corrección:**
+<!--Agregar images/str_conjunto_datos y tibble_conjunto_datos_0*-->
+
+### Obtenemos la duracion del viaje
 
 Es importante primero obtener la duración del viaje y después separar las 
 variables de `fecha_inicio`, `hora_inicio`, `fecha_finalizacion` y 
@@ -325,7 +327,11 @@ cyclistic_data <- conjunto_datos %>%
     fecha_inicio = ymd(fecha_inicio),
     fecha_finalizacion = ymd(fecha_finalizacion)
   )
+
+head(cyclistic_data)
 ```
+
+<!--Agregar imagen tibble_cyclistic_data_0*-->
 
 ### Verificar consistencia de los datos
 
@@ -364,22 +370,33 @@ cyclistic_data$distancia_viaje <- distHaversine(cbind(cyclistic_data$start_lng,
 
 # La columna 'distancia_viaje' ahora contiene la distancia haversine en metros 
 # para cada viaje
+head(cyclistic_data)
 ```
 
-Contamos el número de observaciones que tienen una distancia de viaje de cero
+<!--tibble_cyclistic_data_con_distancia_01 --->
+
+Contamos el número de observaciones que tienen una distancia de viaje de cero o
+una distancia que resulte irrelevante, un viaje menor a 100 m resulta irrelevante
+pues pudo ser provocado por un error en los datos o error en la manera en la 
+que se calcula la distancia
 
 ```r
 cyclistic_data %>% 
-  filter(duracion_viaje == 0) %>% 
+  filter(distancia_viaje <= 100) %>% 
   summarise(cantidad = n())
 ```
+
+<!--conteo_distancia_viaje_menor_cien_metros -->
 
 Eliminamos estas observaciones y las almacenamos en el conjunto de datos
 
 ```r
 cyclistic_data <- cyclistic_data %>% 
-  filter(distancia_viaje != 0)
+  filter(distancia_viaje >= 100)
 ```
+
+<!--str_cyclistic_data_filtrado_distancia_mayor_cien_metros -->
+
 ### Verificamos consistencia de los datos
 
 Durante la fase de analisís se hizo notar la existencia de viajes de bicicleta
@@ -390,6 +407,9 @@ cyclistic_data %>%
   filter(duracion_viaje > 1440 & distancia_viaje > 10000) %>% 
   arrange(duracion_viaje)
 ```
+
+<!--tibble_salida_duracion_viaje_mayor_un_dia_ordenados_distancia-->
+
 La salida anterior muestra que existen viajes de más de 10 km con una duración
 de más de un día (un día tiene 1440 minutos). Esto no resulta de un uso 
 cotidiano, pues a una velocidad promedio de 10 km/h se recorrerían estas 
@@ -404,17 +424,44 @@ Por otro lado, un viaje de 24 horas tampoco resultaría de un uso cotidiano.
 Se reducirá el área de análisis a viajes con una duración de menos de 600
 minutos, es decir, diez horas. A continuación, se sustenta esta decisión:
 
-```{r}
+```r
 cyclistic_data %>% 
   filter(duracion_viaje > 600) %>% 
   arrange(-distancia_viaje)
 ```
 
+<!--tibble_salida_duracion_viaje_mayor_diez_horas_ordenados_descendentemente_distancia-->
 
-```{r}
-cyclistic_data <- cyclistic_data %>% 
-  filter(duracion_viaje < 600)
+Esta salida muestra que la distancia mas grande recorrida fue
+de **25 km** y una duración de mas de **74 horas**, esto tampoco corresponde a
+un uso cotidiano por lo que dejaremos delimitados nuestro conjunto de datos a 
+viajes menores de diez horas.
+
+Si realizamos una ejeución parecida pero con un tiempo menor a **6 horas**
+veremos que las distancias de viaje con respecto al tiempo realizados son más
+coherentes con un uso del servicio adecuado.
+
+```r
+cyclistic_data %>% 
+  filter(duracion_viaje <= 360) %>% 
+  arrange(-distancia_viaje)
 ```
+<!--tibble_salida_duracion_viaje_menor_seis_horas_ordenados_descendentemente_distancia -->
+
+Con estos criterios filtramos nuestros datos y los almacenamos en un conjunto
+de datos mas limpio.
+
+```r
+cyclistic_data <- cyclistic_data %>% 
+  filter(duracion_viaje < 360)
+```
+### Verificamos categorias existentes en las variables
+
+```r
+cyclistic_data %>% 
+  distinct(member_casual)
+```
+<!--categorias_member_casual -->
 
 ### Procesamiento de datos nulos
 
@@ -444,8 +491,9 @@ donde al menos un valor es nulo. Entonces, `filas_con_nulos` contendrá
 ```r
 str(filas_con_nulos)
 ```
+<!--tibble_str_filas_con_nulos-->
 
-Tenemos `234 800` columnas que contienen datos nulos, vamos a verificar 
+Tenemos `206 057` columnas que contienen datos nulos, vamos a verificar 
 el número de nulos en cada una de las columnas
 
 ```r
@@ -468,6 +516,8 @@ for (nombre_columna in colnames(nombre_data_frame)) {
 }
 
 ```
+
+<!--conteo_valores_nulos_cyclistic-->
 
 La salida nos muestra que la mayor cantidad de nulos la encontramos en las
 variables `start_station_name`, start_station_id, end_station_name y 
@@ -494,7 +544,10 @@ if (hay_duplicados) {
 } else {
   print("No hay datos duplicados en el data frame.")
 }
-``````
+```
+
+<!--verificar_duplicados_cyclistic-->
+
 La salida indica que no existen datos duplicados, para terminar nuestro
 procesamiento procedemos a ordenarlos
 
@@ -541,6 +594,4 @@ objetos de manera eficiente para un uso futuro.
 ```r
 saveRDS(cyclistic_data,
         "~/Desktop/Analisis_de_datos/Cyclistic_Datasets/cyclistic_data.rds")
-```
-
 ```
