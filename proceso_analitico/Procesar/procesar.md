@@ -472,7 +472,8 @@ cyclistic_data <- cyclistic_data %>%
 cyclistic_data %>% 
   distinct(member_casual)
 ```
-<!--categorias_member_casual -->
+
+![Categorias existententes en variable member_casual](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/categorias_member_casual.png)
 
 ### Procesamiento de datos nulos
 
