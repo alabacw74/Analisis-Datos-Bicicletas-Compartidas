@@ -503,7 +503,9 @@ donde al menos un valor es nulo. Entonces, `filas_con_nulos` contendrá
 ```r
 str(filas_con_nulos)
 ```
+
 <!--tibble_str_filas_con_nulos-->
+![Descripción de filas con nulos](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_str_filas_con_nulos.png)
 
 Tenemos `206 057` columnas que contienen datos nulos, vamos a verificar 
 el número de nulos en cada una de las columnas
@@ -530,6 +532,7 @@ for (nombre_columna in colnames(nombre_data_frame)) {
 ```
 
 <!--conteo_valores_nulos_cyclistic-->
+![Conteo valores nulos en cyclistic](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/conteo_valores_nulos_cyclistic.png)
 
 La salida nos muestra que la mayor cantidad de nulos la encontramos en las
 variables `start_station_name`, start_station_id, end_station_name y 
@@ -559,6 +562,7 @@ if (hay_duplicados) {
 ```
 
 <!--verificar_duplicados_cyclistic-->
+![Verificar duplicados](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/verificar_duplicados_cyclistic.png)
 
 La salida indica que no existen datos duplicados, para terminar nuestro
 procesamiento procedemos a ordenarlos
