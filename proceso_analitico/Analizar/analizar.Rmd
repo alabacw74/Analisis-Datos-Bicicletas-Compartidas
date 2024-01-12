@@ -108,7 +108,7 @@ grafico_duracion_viaje_por_tipo <- ggplot(data = duracion_viaje_por_tipo) +
        y = "Duración promedio de viaje (min)",
        fill = "Tipo de usuario",
        caption = "alabacw74 / Datos de divybykes") +
-  scale_y_continuous(limits = c(0,20))
+  scale_y_continuous(limits = c(0,40))
 
 grafico_duracion_viaje_por_tipo
 ```
@@ -172,8 +172,19 @@ ggsave("Grafico_distancia_viaje_por_tipo.jpeg",
 
 ```{r}
 ggplot(data=cyclistic_data) +
-  geom_point(mapping = aes(x = duracion_viaje, distancia_viaje,
-                           color=member_casual))
+  geom_point(mapping = aes(x = distancia_viaje/1000, y=duracion_viaje,
+                           color=member_casual)) +
+  facet_wrap(~member_casual)
+```
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje > 20000)
+```
+
+```{r}
+cyclistic_data %>% 
+  group_by(member_casual) %>% 
+  summarise(cor(duracion_viaje, distancia_viaje))
 ```
 
 ## Número de pasajeros por día de la semana
