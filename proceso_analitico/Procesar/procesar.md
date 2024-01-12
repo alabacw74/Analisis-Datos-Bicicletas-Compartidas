@@ -402,6 +402,8 @@ Eliminamos estas observaciones y las almacenamos en el conjunto de datos
 ```r
 cyclistic_data <- cyclistic_data %>% 
   filter(distancia_viaje >= 100)
+
+str(cyclistic_data)
 ```
 
 ![Resumen de cyclistic_data filtrado por distancia mayor a cien metros](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/str_cyclistic_data_filtrado_distancia_mayor_cien_metros.png)
@@ -416,8 +418,7 @@ cyclistic_data %>%
   filter(duracion_viaje > 1440 & distancia_viaje > 10000) %>% 
   arrange(duracion_viaje)
 ```
-
-<!--tibble_salida_duracion_viaje_mayor_un_dia_ordenados_distancia-->
+![Duracion de viajes mayores a un dia ordenados por distancia](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_salida_duracion_viaje_mayor_un_dia_ordenados_distancia.png)
 
 La salida anterior muestra que existen viajes de más de 10 km con una duración
 de más de un día (un día tiene 1440 minutos). Esto no resulta de un uso 
@@ -439,7 +440,7 @@ cyclistic_data %>%
   arrange(-distancia_viaje)
 ```
 
-<!--tibble_salida_duracion_viaje_mayor_diez_horas_ordenados_descendentemente_distancia-->
+![Duracion de viajes mayores a diez horas ordenados descendentemente por distancia](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_salida_duracion_viaje_mayor_diez_horas_ordenados_descendentemente_distancia.png)
 
 Esta salida muestra que la distancia mas grande recorrida fue
 de **25 km** y una duración de mas de **74 horas**, esto tampoco corresponde a
@@ -456,6 +457,7 @@ cyclistic_data %>%
   arrange(-distancia_viaje)
 ```
 <!--tibble_salida_duracion_viaje_menor_seis_horas_ordenados_descendentemente_distancia -->
+![Duracion de viajes menores a seis horas ordenados descendentemente por distancia](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_salida_duracion_viaje_menor_seis_horas_ordenados_descendentemente_distancia.png)
 
 Con estos criterios filtramos nuestros datos y los almacenamos en un conjunto
 de datos mas limpio.
