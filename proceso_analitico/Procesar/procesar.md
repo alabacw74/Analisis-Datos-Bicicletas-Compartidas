@@ -394,7 +394,8 @@ cyclistic_data %>%
   summarise(cantidad = n())
 ```
 
-<!--conteo_distancia_viaje_menor_cien_metros -->
+![Conteo de distancia por viaje menor a cien metros](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/conteo_distancia_viaje_menor_cien_metros.png)
+
 
 Eliminamos estas observaciones y las almacenamos en el conjunto de datos
 
@@ -403,7 +404,7 @@ cyclistic_data <- cyclistic_data %>%
   filter(distancia_viaje >= 100)
 ```
 
-<!--str_cyclistic_data_filtrado_distancia_mayor_cien_metros -->
+![Resumen de cyclistic_data filtrado por distancia mayor a cien metros](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/str_cyclistic_data_filtrado_distancia_mayor_cien_metros.png)
 
 ### Verificamos consistencia de los datos
 
