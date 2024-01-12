@@ -304,8 +304,10 @@ head(conjunto_datos)
 ```
 
 ![Descripción de `conjunto_datos`](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/str_conjunto_datos.png)
-![`Tibble de `conjunto_datos`](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_conjunto_datos_01.png)
-![`Tibble de `conjunto_datos`](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_conjunto_datos_02.png)
+
+![Tibble de `conjunto_datos` 1](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_conjunto_datos_01.png)
+
+![Tibble de `conjunto_datos` 2](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_conjunto_datos_02.png)
 
 ### Obtenemos la duracion del viaje
 
