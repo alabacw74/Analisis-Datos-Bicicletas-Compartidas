@@ -379,7 +379,9 @@ cyclistic_data$distancia_viaje <- distHaversine(cbind(cyclistic_data$start_lng,
 head(cyclistic_data)
 ```
 
-<!--tibble_cyclistic_data_con_distancia_01 --->
+![Salida head cyclictic_data con distancia](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_cyclistic_data_con_distancia_01.png)
+
+![Salida head cyclictic_data con distancia 2](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/images/tibble_cyclistic_data_con_distancia_02.png)
 
 Contamos el número de observaciones que tienen una distancia de viaje de cero o
 una distancia que resulte irrelevante, un viaje menor a 100 m resulta irrelevante
