@@ -34,15 +34,7 @@ los siguientes resultados:
 
 ## Introducción
 
-Como se menciono en la fase de `Prepararación` nuestro conjunto de datos incluye
-la información sobre los viajes historicos en formato .zip, siendo en total
-trece ficheros. Los conjuntos de datos superan los **cien mil registros** es 
-por eso que definir una herramienta adecuada para procesar los datos y 
-posteriormente poder analizarlos de manera eficiente y profesional es de vital
-importancia. Por lo anterior, en este documento incluimos la definición de la
-herramienta a utilizar y la documentación de la limpieza de los datos para 
-poder tener un flujo de trabajo adecuado y poder avanzar en el proceso de
-analisís de los datos sin contratiempos.
+Como se mencionó en la fase de `Preparación`, nuestro conjunto de datos incluye la información sobre los viajes históricos en formato .zip, siendo en total trece ficheros. Los conjuntos de datos superan los **tres millones de registros**. Es por eso que definir una herramienta adecuada para procesar los datos y, posteriormente, poder analizarlos de manera eficiente y profesional es de vital importancia. Por lo anterior, en este documento incluimos la definición de la herramienta a utilizar y la documentación de la limpieza de los datos para poder tener un flujo de trabajo adecuado y poder avanzar en el proceso de análisis de los datos sin contratiempos.
 
 ## Importación de los datos
 
@@ -57,13 +49,15 @@ library(tidyverse)
 
 ### Automatización de lectura de los archivos
 
-La forma en la que se ha realizado la adquisición de los datos nos llevo a tener
-archivos aislados con nombres diferentes, para poder realizar la lectura de los
-archivos .csv extraidos y unirlos en un data frame creamos el siguiente script
-que automatiza dicha tarea. A continuación documentamos su funcionamiento:
+**Corrección:**
+
+La forma en que se ha realizado la adquisición de los datos nos llevó a tener 
+archivos aislados con nombres diferentes. Para poder realizar la lectura de los
+ archivos .csv extraídos y unirlos en un data frame, creamos el siguiente script
+  que automatiza dicha tarea. A continuación, documentamos su funcionamiento:
 
 1. Inicializamos una lista que se utilizará para almacenar cada uno de los data
-   frames importados
+   frames importados.
    
 ``` r
 lista_dataframes <- list()
@@ -104,7 +98,7 @@ lista_dataframes <- list()
     la variable `nombre_variable`utilizando `assign`. Luego, ese data frame sé 
     agrega a la lista lista_dataframes utilizando la notación de doble 
     corchete [[ ]].
-        -  Aquí, se utiliza [[ para acceder al elemento de la lista 
+        -  Aquí, se utiliza `[[`` para acceder al elemento de la lista 
            lista_dataframes con el nombre almacenado en nombre_variable. 
            get(nombre_variable) devuelve el valor de la variable con el nombre 
            almacenado en nombre_variable. Luego, ese valor se asigna al elemento 
@@ -194,7 +188,7 @@ for (j in 20:21) {
 
 #### Paso 2: Comparación de Tipos de datos
 
-Luego de obtener los tipos de datos de cada columna de cada data frame, se 
+Después de obtener los tipos de datos de cada columna de cada data frame, se 
 realiza una comparación para verificar si todas las columnas tienen el mismo 
 tipo de dato en todos los data frames.
 
@@ -227,8 +221,8 @@ if (comparacion_tipos) {
 
 Este código proporciona una salida informativa sobre la consistencia de los 
 tipos de datos en los data frames, señalando si todos son consistentes o, en 
-caso contrario, identificando las columnas específicas y los data frames 
-donde se encuentran diferencias.
+caso contrario, identificando las columnas específicas y los data frames donde 
+se encuentran diferencias.
 
 #### Paso 3: Unificar tipos de datos
 
@@ -236,10 +230,10 @@ Con la sálida del código anterior podemos corregir las discrepancias en los
 tipos de datos de algunas columnas:
 
 Como se observa las columnas que presentan diferencias son
-`start_station_id` y `end_station_id`, para los data frame que nos proporciona
-el código anterior son de tipo `character`, considero que es mejor trabajar 
+`start_station_id` y `end_station_id`. Para los data frame que nos proporciona
+el código anterior son de tipo `character`. Considero que es mejor trabajar 
 estos identificadores con el tipo `character` que con el tipo `double` que es
-el tipo de dato con el que se encuentran en todos los demas data frame. Por lo
+el tipo de dato con el que se encuentran en todos los demás data frame. Por lo
 anterior, procedemos a convertir dichas columnas a tipo `character`
 
 #### Conversión de Columnas a Tipo Character en Data Frames
@@ -299,36 +293,37 @@ View(conjunto_datos)
 
 ### Unificar datos en un único data frame
 
+Para poder trabajar eficientemente con todo nuestro conjunto de datos, crearemos
+un data frame preeliminar llamado `conjunto_datos`.
+
 ```r
 # Combina todos los data frames en uno solo
 conjunto_datos <- bind_rows(lista_dataframes)
 View(conjunto_datos)
 ```
-### Separar started_at y enden_at
+### Obtenemos la duracion del viaje
 
-Deseamos generar columnas separadas tanto para la fecha como para la hora de
-inicio y finalización del viaje, eso se logra con los siguientes bloques de
-código
+**Corrección:**
 
-```{r}
-cyclistic_data <- separate(conjunto_datos, "started_at",
-                           into=c("fecha_inicio", "hora_inicio"),
-                           sep=" ")
-```
+Es importante primero obtener la duración del viaje y después separar las 
+variables de `fecha_inicio`, `hora_inicio`, `fecha_finalizacion` y 
+`hora_finalizacion`. Invertir el orden provoca que sea más complicado sacar 
+las diferencias de tiempo, ya que separarlas solo toma en cuenta las horas, 
+pero pudieron existir viajes que ocurrieron en días diferentes, provocando que 
+las diferencias de hora sean negativas. Realizamos posteriormente la separación 
+de `started_at` y `ended_at`, y su conversión a un objeto de tipo fecha.
 
-```{r}
-cyclistic_data <- separate(cyclistic_data, "ended_at",
-                           into=c("fecha_finalizacion", "hora_finalizacion"),
-                           sep=" ")
-```
-### Convertimos fecha_inicio, fecha_finalizacion, hora_inicio_ hora finalizacion
-
-```{r}
-cyclistic_data <- cyclistic_data %>% 
+```r
+cyclistic_data <- conjunto_datos %>% 
   mutate(
-    hora_inicio = as.POSIXct(hora_inicio, format = "%H:%M:%S"),
-    hora_finalizacion = as.POSIXct(hora_finalizacion, format = "%H:%M:%S"),
-    duracion_viaje = as.numeric(difftime(hora_finalizacion, hora_inicio, units = "mins"))
+    duracion_viaje = as.numeric(difftime(ended_at, started_at, units = "mins"))
+  ) %>% 
+  separate(started_at, into = c("fecha_inicio", "hora_inicio"), sep = " ") %>%
+  separate(ended_at, into = c("fecha_finalizacion", "hora_finalizacion"), sep = " ") %>% 
+  filter(duracion_viaje > 0) %>%
+  mutate(
+    fecha_inicio = ymd(fecha_inicio),
+    fecha_finalizacion = ymd(fecha_finalizacion)
   )
 ```
 
@@ -354,6 +349,7 @@ realizaron. Para poder eliminar esto seguimos el siguiente código:
 library(geosphere)
 
 ```
+
 Nuestro data_frame tiene las columnas `start_lat`, `start_lng`, `end_lat`, 
 `end_lng`. Estas columnas contienen coordenadas de inicio y fin de cada viaje
 
@@ -383,6 +379,41 @@ Eliminamos estas observaciones y las almacenamos en el conjunto de datos
 ```r
 cyclistic_data <- cyclistic_data %>% 
   filter(distancia_viaje != 0)
+```
+### Verificamos consistencia de los datos
+
+Durante la fase de analisís se hizo notar la existencia de viajes de bicicleta
+con una duración mayor a un día, vamos a revisar estos viajes:
+
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje > 1440 & distancia_viaje > 10000) %>% 
+  arrange(duracion_viaje)
+```
+La salida anterior muestra que existen viajes de más de 10 km con una duración
+de más de un día (un día tiene 1440 minutos). Esto no resulta de un uso 
+cotidiano, pues a una velocidad promedio de 10 km/h se recorrerían estas 
+distancias en mucho menos tiempo. Sugiere que existe un grupo de usuarios que 
+solicita una bicicleta y, en su recorrido, decide detenerse por alguna
+actividad y luego devuelve la bicicleta, añadiendo tiempo a su recorrido. 
+En nuestro caso, dicha actividad se extiende más de 24 horas, por lo que 
+podemos decir que, para fines de nuestro análisis, dicho grupo de usuarios
+debe ser analizado por separado.
+
+Por otro lado, un viaje de 24 horas tampoco resultaría de un uso cotidiano. 
+Se reducirá el área de análisis a viajes con una duración de menos de 600
+minutos, es decir, diez horas. A continuación, se sustenta esta decisión:
+
+```{r}
+cyclistic_data %>% 
+  filter(duracion_viaje > 600) %>% 
+  arrange(-distancia_viaje)
+```
+
+
+```{r}
+cyclistic_data <- cyclistic_data %>% 
+  filter(duracion_viaje < 600)
 ```
 
 ### Procesamiento de datos nulos
