@@ -218,3 +218,26 @@ menos distancias a medida que aumenta el tiempo de uso.
 
 Para poder sustentar si realmente existe una tendencia entre la distancia y 
 duración de los viajes, obtendremos la correlación en la siguiente sección.
+
+## Correlación entre la distancia y la duración de viaje
+
+La correlación nos permite ver si nuestros dos ejes de datos se comportan de la 
+misma manera respecto a sus medias. Si esto sucede, se tendrá una correlación 
+fuerte (un valor cercano a +1); por el contrario, se puede tener una correlación
+baja o nula. Veamos cuál es su valor para nuestras variables para cada tipo 
+de usuario.
+
+```r
+cyclistic_data %>% 
+  group_by(member_casual) %>% 
+  summarise(cor(duracion_viaje, distancia_viaje))
+```
+
+![Correlación entre duración y distancia de viaje](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/correlacion_distancia_duracion_viaje.png)
+
+Estos resultados nos indican que no hay una correlación fuerte entre la duracion
+y la distancia de viaje pero nos permite confirmar el comportamiento que habiamos
+definido en el gŕafico anterior. Los `member` tienden a aumentar más su duración
+de viaje cuando sus recorridos son más largos mientras que los casuales no
+muestran este patrón, sino que mantienen una proporción similar entre la duración
+de sus viajes y sus distancias.
