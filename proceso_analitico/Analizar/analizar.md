@@ -241,3 +241,35 @@ definido en el gŕafico anterior. Los `member` tienden a aumentar más su duraci
 de viaje cuando sus recorridos son más largos mientras que los casuales no
 muestran este patrón, sino que mantienen una proporción similar entre la duración
 de sus viajes y sus distancias.
+
+## Número de pasajeros por día de la semana
+
+El siguiente punto de enfoque en nuestro analisís es el número de pasajeros por
+día de la semana. Para poder realizar este analisís es necesario extraer esta
+información de nuestro conjunto de datos, el siguiente bloque de código lo logra:
+
+```r
+# Obtenemos el conteo de viajes por día de la semana
+num_viaje_por_dia_tipo <- cyclistic_data %>%
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>%
+  summarise(count = n())
+```
+
+```r
+# Ordenamos los días de la semana para una mejor visualización
+num_viaje_por_dia_tipo$viajes_dia_semana <-
+  factor(num_viaje_por_dia_tipo$viajes_dia_semana,
+         levels = c("lunes",
+                    "martes",
+                    "miércoles",
+                    "jueves",
+                    "viernes",
+                    "sábado",
+                    "domingo"), ordered = TRUE)
+
+num_viaje_por_dia_tipo <- num_viaje_por_dia_tipo[order(num_viaje_por_dia_tipo$viajes_dia_semana),]
+
+num_viaje_por_dia_tipo
+```
+
+![Numero de viajes por dia de la semana](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conteo_viajes_por_dia_semana_por_tipo_usuario.png)
