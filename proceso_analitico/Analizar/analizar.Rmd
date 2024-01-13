@@ -74,7 +74,7 @@ grafico_porcentaje_tipo_usuario
 # Guardar el gráfico con ggsave
 ggsave("Grafico_porcentaje_tipo_usuario.jpeg",
        plot = grafico_porcentaje_tipo_usuario,
-       path = "~/Desktop/Analisis_de_datos/",
+       path = "~/Desktop/Analisis_de_datos/proceso_analitico/Analizar/images/",
        device = "jpeg")
 ```
 
@@ -108,7 +108,17 @@ grafico_duracion_viaje_por_tipo <- ggplot(data = duracion_viaje_por_tipo) +
        y = "Duración promedio de viaje (min)",
        fill = "Tipo de usuario",
        caption = "alabacw74 / Datos de divybykes") +
-  scale_y_continuous(limits = c(0,40))
+  scale_y_continuous(limits = c(0,30)) +
+  annotate("text",
+           x=1, y=2,
+           label= "29.04 min",
+           color="black",
+           fontface="bold",size=4.0) +
+  annotate("text",
+           x=2, y=2,
+           label= "14.91 min",
+           color="black",
+           fontface="bold",size=4.0)
 
 grafico_duracion_viaje_por_tipo
 ```
@@ -149,14 +159,14 @@ grafico_distancia_viaje_por_tipo <- ggplot(data = distancia_viaje_por_tipo) +
                      breaks = seq(0, 3, by = 0.5)) +
   annotate("text",
            x=1, y=2,
-           label= "2.6 km",
+           label= "2.546 km",
            color="black",
-           fontface="bold",size=4.5) +
+           fontface="bold",size=4.0) +
   annotate("text",
            x=2, y=2,
-           label= "2.4 km",
+           label= "2.370 km",
            color="black",
-           fontface="bold",size=4.5)
+           fontface="bold",size=4.0)
 
 grafico_distancia_viaje_por_tipo
 ```
@@ -172,14 +182,11 @@ ggsave("Grafico_distancia_viaje_por_tipo.jpeg",
 
 ```{r}
 ggplot(data=cyclistic_data) +
-  geom_point(mapping = aes(x = distancia_viaje/1000, y=duracion_viaje,
+  geom_point(mapping = aes(x = duracion_viaje, y=distancia_viaje/1000,
                            color=member_casual)) +
   facet_wrap(~member_casual)
 ```
-```{r}
-cyclistic_data %>% 
-  filter(duracion_viaje > 20000)
-```
+
 
 ```{r}
 cyclistic_data %>% 
