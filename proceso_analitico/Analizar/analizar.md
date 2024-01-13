@@ -90,7 +90,19 @@ grafico_duracion_viaje_por_tipo <- ggplot(data = duracion_viaje_por_tipo) +
        y = "Duración promedio de viaje (min)",
        fill = "Tipo de usuario",
        caption = "alabacw74 / Datos de divybykes") +
-  scale_y_continuous(limits = c(0,20))
+  scale_y_continuous(limits = c(0,30)) +
+  annotate("text",
+           x=1, y=2,
+           label= "29.04 min",
+           color="black",
+           fontface="bold",size=4.0) +
+  annotate("text",
+           x=2, y=2,
+           label= "14.91 min",
+           color="black",
+           fontface="bold",size=4.0)
+
+grafico_duracion_viaje_por_tipo
 ```
 
 ![Duración promedio de viaje por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_duracion_viaje_por_tipo.jpeg)
@@ -111,7 +123,9 @@ distancia_viaje_por_tipo <- cyclistic_data %>%
 <!-- Agregar imagen tibble_distancia_viaje_tipo_usuario.png-->
 ![Distancia de viaje por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_distancia_viaje_tipo_usuario.png)
 
-Aquí obtuvimos un subconjunto de `cyclistic_data` para poder trabajar con él más eficientemente. Utilizamos `member_casual` y `distancia_viaje`, esta última con el objetivo de poder calcular la distancia de viaje promedio en metros y la primera para poder relacionar ambas variables.
+Aquí obtuvimos un subconjunto de `cyclistic_data` para poder trabajar con él más eficientemente. Utilizamos `member_casual` y `distancia_viaje`, esta última con el objetivo de poder calcular la distancia de viaje promedio en metros y la primera para poder relacionar ambas variables. Nuestro conjunto de datos no contiene viajes con una
+distancia inferior a cien metros, pues se consideró que no corresponden a un uso
+cotidiano del sistema de bicicletas.
 
 ### Visualización 
 
@@ -145,4 +159,62 @@ grafico_distancia_viaje_por_tipo
 
 ![Distancia de viaje promedio por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_viaje_por_tipo.jpeg)
 
-Podemos observar que un usuario `member` recorre 2.4 km en promedio; por otro lado, un usuario `casual` recorre 2.6 km. Las diferencias son de 200 m, mientras que las diferencias de tiempo son aproximadamente 2.6 minutos.
+Podemos observar que un usuario `member` recorre 2.37 km en promedio; por otro lado, un usuario `casual` recorre 2.55 km. Las diferencias son de aproximadamente 200 m, mientras que las diferencias de tiempo son aproximadamente 14.13 minutos.
+
+## Distancia contra tiempo por tipo de usuario
+
+Hasta aquí hemos visto que hay una diferencia muy grande entre las duraciones de
+viaje pero no hay una diferencia muy significativa en las distancias (aproximadas)
+que los usuarios recorren. El siguiente gráfico muestra la relación entre
+la distancia de viaje en Km contra la duración del viaje en minutos:
+
+```r
+grafico_distancia_viaje_vs_duracion_suavizado_gam <- ggplot(data=cyclistic_data) +
+  geom_point(mapping = aes(x = duracion_viaje/60, y=distancia_viaje/1000,
+                           color=member_casual)) +
+  facet_wrap(~member_casual) +
+  geom_smooth(mapping = aes(x=duracion_viaje/60, y=distancia_viaje/1000),
+              method = "gam",formula = y ~s(x)) +
+  labs(title = "Viajes en bicicleta: Distancia de viaje vs Duración",
+       subtitle = "Muestras para dos tipos de usuario con Suavizado GAM",
+       caption = "alabacw74 / Datos de Divybykes",
+       x = "Duración (horas)",
+       y = "Distancia (km)")
+```
+
+
+El objetivo del código es generar un gráfico de dispersión que representa la 
+relación entre la duración de los viajes en bicicleta (en horas) y la distancia 
+recorrida durante esos viajes (en kilómetros). Además, se aplica un suavizado 
+utilizando el modelo GAM (Generalized Additive Model) para visualizar tendencias
+ generales en los datos.
+
+A continuación, se presenta una descripción detallada del código:
+
+1. `ggplot(data=cyclistic_data)`: Se crea un objeto ggplot utilizando los datos
+ del marco de datos `cyclistic_data`.
+
+2. `geom_point(mapping = aes(x = duracion_viaje/60, y=distancia_viaje/1000, color=member_casual))`: Se agregan puntos al gráfico de dispersión, mapeando la duración del viaje en el eje x (convertida a horas) y la distancia del viaje en el eje y (convertida a kilómetros). Además, se utiliza el color para distinguir entre los tipos de usuarios (`member_casual`).
+
+3. `facet_wrap(~member_casual)`: Se dividen los gráficos en facetas según el tipo de usuario, creando paneles separados para cada categoría.
+
+4. `geom_smooth(mapping = aes(x=duracion_viaje/60, y=distancia_viaje/1000), method = "gam", formula = y ~ s(x))`: Se agrega una línea de suavizado utilizando el modelo GAM para visualizar tendencias generales en los datos. La duración y la distancia del viaje se ajustan mediante el modelo GAM.
+
+5. `labs(...)`: Se configuran los títulos y etiquetas del gráfico, incluyendo el título principal, el subtítulo, la leyenda y los ejes x e y.
+
+### Visualizacion
+
+![Distancia de viaje vs duracion](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_viaje_vs_duracion_suavizado_gam.jpeg)
+
+La relevancia del gráfico radica en que nos permite visualizar patrones en los 
+viajes que realiza cada tipo de usuario. Para los usuarios `casual`, se observan
+viajes con distancias y duraciones más constantes; sus viajes suelen tener 
+distancias similares, pero con duraciones cada vez más grandes. Por otro lado,
+los usuarios `member` muestran un comportamiento más diferenciado. Sus viajes 
+suelen ser de menor duración, teniendo un pico de duración entre la media hora
+y la hora con una distancia de poco más de 5 km. Después de estos puntos, 
+muestran un decaimiento constante, indicando que estos usuarios recorren 
+menos distancias a medida que aumenta el tiempo de uso.
+
+Para poder sustentar si realmente existe una tendencia entre la distancia y 
+duración de los viajes, obtendremos la correlación en la siguiente sección.
