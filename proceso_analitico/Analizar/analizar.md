@@ -361,3 +361,37 @@ fines de semana. Por otro lado, los viajes de los usuarios `member` también se
 <!-- Analisis de dispersion usando la desviación estandar para saber que tan constantes se mantienen-->
 
 ![Gráfico duración de viaje diaria por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_duracion_viajes_diarios_por_tipo.jpeg "Duración promedio de viajes diarios por tipo de usuario")
+
+
+## Distancia de viaje promedio diario por tipo de usuario
+
+Continuando con el enfoque mencionado en la sección anterior, continuaremos el 
+analisís mostrando el comportamiento de cada tipo de usuario en la distancia
+promedio de sus viajes a lo largo de la semana. Igualmente que en la sección
+anterior comenzaremos creando un subconjunto que nos permita seleccionar las
+variables necesarias y a la vez poder ser más eficientes en su uso. El siguiente
+bloque de código se encarga de ello:
+
+```r
+distancia_viaje_por_dia_tipo <- cyclistic_data %>% 
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>% 
+  summarise(distancia_promedio = mean(distancia_viaje)) %>% 
+  drop_na()
+```
+```r
+distancia_viaje_por_dia_tipo$viajes_dia_semana <-
+  factor(distancia_viaje_por_dia_tipo$viajes_dia_semana,
+         levels = c("lunes",
+                    "martes",
+                    "miércoles",
+                    "jueves",
+                    "viernes",
+                    "sábado",
+                    "domingo"), ordered = TRUE)
+
+distancia_viaje_por_dia_tipo <- distancia_viaje_por_dia_tipo[order(distancia_viaje_por_dia_tipo$viajes_dia_semana),]
+
+distancia_viaje_por_dia_tipo
+```
+
+![tibble_distancia_promedio_viajes_por_dia_semana_por_tipo_usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_distancia_promedio_viajes_por_dia_semana_por_tipo_usuario.png "Distancia promedio de viajes diarios por tipo de usuario")
