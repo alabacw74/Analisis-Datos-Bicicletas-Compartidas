@@ -425,3 +425,26 @@ El gráfico anterior debe ser visto con cuidado, pues el `eje y` ha sido iniciad
  en un valor diferente a cero para poder enfatizar las diferencias existentes.
 
 ![Distancia promedio de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg "Distancia promedio de viajes diarios por tipo de usuario")
+
+## Distancia promedio de viaje por tipo de usuario agrupados por mes
+
+Ahora que conocemos el comportamiento semanal, es interesante poder conocer 
+cuál es su comportamiento a lo largo del año. Una de las razones iniciales por
+las que delimitamos nuestro conjunto de datos a un año fue justamente para 
+poder extraer el comportamiento que tienen los usuarios a lo largo del año, 
+permitiendo así conocer mejor sus patrones de uso.
+
+Para comenzar estas secciones que agrupan los datos por mes, analizaremos la 
+tendencia de la distancia promedio de los viajes realizados por cada tipo de 
+usuario. Al igual que en las secciones anteriores, crearemos el subconjunto de
+datos de trabajo.
+
+```r
+distancia_viaje_por_mes_tipo <- cyclistic_data %>% 
+  group_by(member_casual, mes = month(fecha_inicio, label= TRUE)) %>% 
+  summarise(distancia_promedio = mean(distancia_viaje)/1000)
+
+distancia_viaje_por_mes_tipo
+```
+
+![Distancia promedio de viaje por tipo de usuario agrupados por mes](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_distancia_promedio_viajes_mensual_por_tipo_usuario.png "Distancia promedio de viaje por tipo de usuario agrupados por mes")
