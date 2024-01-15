@@ -395,3 +395,33 @@ distancia_viaje_por_dia_tipo
 ```
 
 ![tibble_distancia_promedio_viajes_por_dia_semana_por_tipo_usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_distancia_promedio_viajes_por_dia_semana_por_tipo_usuario.png "Distancia promedio de viajes diarios por tipo de usuario")
+
+### Visualización
+
+Anteriormente, ya habíamos hecho la observación referente a que la distancia 
+promedio de los viajes realizados por los usuarios `casual` es mayor a la de los
+ usuarios `member`. Este gráfico justifica dicha observación y además nos 
+ muestra el comportamiento diario que tiene esta variable para cada tipo de usuario.
+
+```r
+grafico_distancia_promedio_viajes_diarios_por_tipo <- 
+  ggplot(data = distancia_viaje_por_dia_tipo) +
+  geom_col(mapping = aes(x = viajes_dia_semana,
+                         y = distancia_promedio/1000, fill = viajes_dia_semana)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Distancia promedio de viajes diarios",
+       subtitle = "Por tipo de usuario",
+       x = "Día de la semana",
+       y = "Distancia del viaje (km)",
+       fill = "Día de la semana",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), oob = scales::squish)
+
+grafico_distancia_promedio_viajes_diarios_por_tipo
+```
+
+El gráfico anterior debe ser visto con cuidado, pues el `eje y` ha sido iniciado
+ en un valor diferente a cero para poder enfatizar las diferencias existentes.
+
+![Distancia promedio de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg "Distancia promedio de viajes diarios por tipo de usuario")
