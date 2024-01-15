@@ -181,12 +181,26 @@ ggsave("Grafico_distancia_viaje_por_tipo.jpeg",
 ## Distancia vs tiempo por tipo de usuario
 
 ```{r}
-ggplot(data=cyclistic_data) +
-  geom_point(mapping = aes(x = duracion_viaje, y=distancia_viaje/1000,
+grafico_distancia_viaje_vs_duracion_suavizado_gam <- ggplot(data=cyclistic_data) +
+  geom_point(mapping = aes(x = duracion_viaje/60, y=distancia_viaje/1000,
                            color=member_casual)) +
-  facet_wrap(~member_casual)
+  facet_wrap(~member_casual) +
+  geom_smooth(mapping = aes(x=duracion_viaje/60, y=distancia_viaje/1000),
+              method = "gam",formula = y ~s(x)) +
+  labs(title = "Viajes en bicicleta: Distancia de viaje vs Duración",
+       subtitle = "Muestras para dos tipos de usuario con Suavizado GAM",
+       caption = "alabacw74 / Datos de Divybykes",
+       x = "Duración (horas)",
+       y = "Distancia (km)")
 ```
 
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_distancia_viaje_vs_duracion_suavizado_gam.jpeg",
+       plot = grafico_distancia_viaje_vs_duracion_suavizado_gam,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
 
 ```{r}
 cyclistic_data %>% 
@@ -216,9 +230,7 @@ num_viaje_por_dia_tipo$viajes_dia_semana <-
 
 num_viaje_por_dia_tipo <- num_viaje_por_dia_tipo[order(num_viaje_por_dia_tipo$viajes_dia_semana),]
 
-head(num_viaje_por_dia_tipo)
-
-
+num_viaje_por_dia_tipo
 ```
 
 ```{r}
