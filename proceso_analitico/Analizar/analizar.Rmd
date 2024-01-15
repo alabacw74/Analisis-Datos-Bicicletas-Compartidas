@@ -468,7 +468,7 @@ grafico_duracion_viajes_mensuales_por_tipo
 
 ```{r}
 # Guardar el gráfico con ggsave
-ggsave("Grafico_duracion_viajes_mensuales_por_tipo",
+ggsave("Grafico_duracion_viajes_mensuales_por_tipo.jpeg",
        plot = grafico_duracion_viajes_mensuales_por_tipo,
        path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
        device = "jpeg")
