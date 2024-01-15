@@ -563,3 +563,80 @@ Esta visualización muestra que también existe una distribución a lo largo de
 los meses para esta variable. Si bien son menos pronunciados los cambios entre
 cada mes, nos permite observar que hay una mayor duración en los meses 
 centrales para ambos tipos de usuarios.
+
+## Tipos de bicicletas
+
+El conjunto de datos que utilizamos contiene una variable que nos dice el tipo
+de bicicleta que se ha utilizado durante ese viaje. Para indagar en la existencia
+de información útil que pueda diferenciar a cada tipo de usuario con respecto
+a sus preferencias en el tipo de bicicletas realizamos los siguientes procedimientos
+
+### Obtención de las categorias existentes en el tipo de bicicletas
+
+El siguiente bloque de código nos dice que tipos de bicicletas existen en nuestro
+conjunto de datos
+
+```r
+cyclistic_data %>% 
+  distinct(rideable_type)
+```
+
+![Tipos de bicicletas](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/categorias_tipo_bicicleta.png "Tipos de bicicletas")
+
+### Conteo del número de usuarios para cada tipo de bicicleta
+
+Nos gustaría saber cuál es el tipo de bicicleta más utilizado para ello ejecutamos
+lo siguiente:
+
+```r
+conteo_tipo_bicicleta <- cyclistic_data %>%
+  filter(!is.na(rideable_type)) %>%
+  group_by(rideable_type) %>%
+  summarise(count = n())
+
+conteo_tipo_bicicleta
+```
+
+![Conteo de usuarios por tipo de bicicleta](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/conteo_usuarios_por_tipo_de_bicicleta.png "Conteo de usuarios por tipo de bicicleta")
+
+Esta salida nos indica que hay una fuerte preferencia por las `docked_bike`, a
+continuación veremos cuáles son las preferencias por tipo de usuario.
+
+### Tipo de bicicleta y tipo de usuario
+
+Para saber las preferencias que tiene cada tipo de usuario con respecto al 
+modelo de bicicleta, creamos un subconjunto de datos que cuenta el número de
+usuarios de cada tipo para los modelos de bicicleta existentes.
+
+```r
+tipo_bicicleta_por_tipo_usuario <- cyclistic_data %>% 
+  select(member_casual, rideable_type) %>% 
+  group_by(member_casual, rideable_type) %>% 
+  summarise(count = n())
+
+tipo_bicicleta_por_tipo_usuario
+```
+
+![Conteo de tipos de usuario para cada modelo de bicicleta](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/conteo_usuarios_por_tipo_de_bicicleta_por_tipo_de_usuario.png "Conteo de tipos de usuario para cada modelo de bicicleta")
+
+#### Visualización
+
+Para concluir creamos la visualización que muestra la comparativa en el uso
+de cada modelo de bicicleta según el tipo de usuario
+
+```r
+grafico_preferencias_bicicletas <- ggplot(data=tipo_bicicleta_por_tipo_usuario) +
+  geom_col(mapping = aes(x=rideable_type, y=count, fill=rideable_type)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Bicicletas preferidas",
+       subtitle = "Por tipo de usuario",
+       x = "Tipo de bicicleta",
+       y = "Número de usuarios (x1000)",
+       fill = "Tipo de bicicletas",
+       caption = "alabacw74 / Datos de divybykes") +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3))
+
+grafico_preferencias_bicicletas
+```
+
+![Grafico de preferencias de bicicleta por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_preferencias_bicicletas.jpeg "Grafico preferencias de bicicleta por tipo de usuario")
