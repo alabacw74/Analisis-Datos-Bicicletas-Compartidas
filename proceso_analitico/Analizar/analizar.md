@@ -448,3 +448,31 @@ distancia_viaje_por_mes_tipo
 ```
 
 ![Distancia promedio de viaje por tipo de usuario agrupados por mes](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_distancia_promedio_viajes_mensual_por_tipo_usuario.png "Distancia promedio de viaje por tipo de usuario agrupados por mes")
+
+### Visualización
+
+Esta visualización es muy interesante por la información que revela. Muestra que
+existe un comportamiento estadístico en los recorridos que realizan los usuarios
+según el mes en el que nos encontremos. Ambos parecen tener una similitud en 
+este comportamiento, variando en su magnitud. El siguiente bloque de código 
+presenta esta visualización.
+
+```r
+grafico_distancia_promedio_viajes_mensuales_por_tipo <-
+  ggplot(data = distancia_viaje_por_mes_tipo) +
+  geom_col(mapping = aes(x = mes, y = distancia_promedio, fill = mes)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Distancia promedio de viajes mensuales",
+       subtitle = "Por tipo de usuario",
+       x = "Mes",
+       y = "Distancia promedio (km)",
+       fill = "Mes del año",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(limits = c(2, 3), breaks = seq(2, 3, by = 0.25), 
+                     oob = scales::squish)
+
+grafico_distancia_promedio_viajes_mensuales_por_tipo
+```
+
+![Distancia promedio de viajes mensuales por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_promedio_viajes_mensuales_por_tipo.jpeg "Distancia promedio de viajes mensuales por tipo de usuario")
