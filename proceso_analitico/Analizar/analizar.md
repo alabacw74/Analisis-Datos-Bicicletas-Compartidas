@@ -333,3 +333,31 @@ tiempo_viaje_por_dia_tipo
 ```
 
 ![Salida de la duracion de viaje por dia de la semana](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_duracion_promedio_viajes_por_dia_semana_por_tipo_usuario.png)
+
+## Visualización
+
+El siguiente código genera la visualización pertinente:
+
+```r
+grafico_duracion_viaje_por_tipo <- ggplot(data = tiempo_viaje_por_dia_tipo) +
+  geom_col(mapping = aes(x = viajes_dia_semana, y = duracion_promedio, fill = viajes_dia_semana)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Duración promedio de viajes diarios",
+       subtitle = "Por tipo de usuario",
+       x = "Día de la semana",
+       y = "Duración del viaje (min)",
+       fill = "Día de la semana",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+grafico_duracion_viaje_por_tipo
+```
+
+Es evidente que los viajes de los usuarios `casual` son de mayor duración 
+promedio, manteniéndose casi constante a lo largo de la semana y aumentando los 
+fines de semana. Por otro lado, los viajes de los usuarios `member` también se
+ mantienen casi constantes a lo largo de la semana, pero con una duración menor.
+
+<!-- Analisis de dispersion usando la desviación estandar para saber que tan constantes se mantienen-->
+
+![Gráfico duración de viaje diaria por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_duracion_viajes_diarios_por_tipo.jpeg "Duración promedio de viajes diarios por tipo de usuario")
