@@ -295,3 +295,41 @@ grafico_conteo_viajes_diarios_por_tipo
 ```
 
 ![Conteo de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_conteo_viajes_diarios_por_tipo.jpeg)
+
+## Duración de viaje promedio diario por tipo de usuario
+
+Para poder comprender otra distinción entre los tipos de usuarios, nos enfocamos
+en realizar visualizaciones que nos permitan obtener información sobre el 
+comportamiento que les da identidad a cada uno. Para ello, las visualizaciones 
+buscan extraer la información utilizando periodos de tiempo para observar cómo 
+varían diferentes variables. En este caso, revisaremos la duración de los viajes 
+que realiza cada usuario por día de la semana.
+
+1. Creamos `tiempo_viaje_por_dia_tipo` para obtener un subconjunto de datos mas
+manejable
+
+```r 
+tiempo_viaje_por_dia_tipo <- cyclistic_data %>% 
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>% 
+  summarise(duracion_promedio = mean(duracion_viaje))
+```
+
+2. Ordenamos los dias de la semana para mejorar la visualización
+
+```r
+tiempo_viaje_por_dia_tipo$viajes_dia_semana <-
+  factor(tiempo_viaje_por_dia_tipo$viajes_dia_semana,
+         levels = c("lunes",
+                    "martes",
+                    "miércoles",
+                    "jueves",
+                    "viernes",
+                    "sábado",
+                    "domingo"), ordered = TRUE)
+
+tiempo_viaje_por_dia_tipo <- tiempo_viaje_por_dia_tipo[order(tiempo_viaje_por_dia_tipo$viajes_dia_semana),]
+
+tiempo_viaje_por_dia_tipo
+```
+
+![Salida de la duracion de viaje por dia de la semana](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_duracion_promedio_viajes_por_dia_semana_por_tipo_usuario.png)
