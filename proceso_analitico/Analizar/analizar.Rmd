@@ -280,7 +280,7 @@ tiempo_viaje_por_dia_tipo$viajes_dia_semana <-
 
 tiempo_viaje_por_dia_tipo <- tiempo_viaje_por_dia_tipo[order(tiempo_viaje_por_dia_tipo$viajes_dia_semana),]
 
-head(tiempo_viaje_por_dia_tipo)
+tiempo_viaje_por_dia_tipo
 ```
 ### Visualizamos
 
@@ -330,7 +330,7 @@ distancia_viaje_por_dia_tipo$viajes_dia_semana <-
 
 distancia_viaje_por_dia_tipo <- distancia_viaje_por_dia_tipo[order(distancia_viaje_por_dia_tipo$viajes_dia_semana),]
 
-head(distancia_viaje_por_dia_tipo)
+distancia_viaje_por_dia_tipo
 ```
 
 ### Visualizamos
@@ -367,6 +367,8 @@ ggsave("Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg",
 distancia_viaje_por_mes_tipo <- cyclistic_data %>% 
   group_by(member_casual, mes = month(fecha_inicio, label= TRUE)) %>% 
   summarise(distancia_promedio = mean(distancia_viaje)/1000)
+
+distancia_viaje_por_mes_tipo
 ```
 ### Creamos la visualizacion
 
@@ -402,6 +404,8 @@ ggsave("Grafico_distancia_promedio_viajes_mensuales_por_tipo.jpeg",
 num_viaje_por_mes_tipo <- cyclistic_data %>% 
   group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE)) %>%
   summarise(count = n())
+
+num_viaje_por_mes_tipo
 ```
 
 ### Creamos la visualización
@@ -431,6 +435,45 @@ ggsave("Grafico_conteo_viajes_mensuales_por_tipo.jpeg",
        path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
        device = "jpeg")
 ```
+
+## Duración promedio de los viajes por tipo de usuario agrupados por mes
+
+La última variable que hemos analizado semanalmente era la duración promedio
+de los viajes, para poder concluir los analisís de comportamiento la visualizaremos
+a lo largo del año
+```{r}
+duracion_viaje_por_mes_por_tipo_usuario <- cyclistic_data %>% 
+  group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE)) %>%
+  summarise(duracion_promedio = mean(duracion_viaje))
+
+duracion_viaje_por_mes_por_tipo_usuario
+```
+### Creamos la visualización
+
+```{r}
+grafico_duracion_viajes_mensuales_por_tipo <- 
+  ggplot(data = duracion_viaje_por_mes_por_tipo_usuario) +
+  geom_col(mapping = aes(x = viajes_mes, y = duracion_promedio, fill = viajes_mes)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Duración promedio de viajes mensuales",
+       subtitle = "Por tipo de usuario",
+       x = "Mes",
+       y = " Duración del viaje (minutos)",
+       fill = "Mes del año",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+grafico_duracion_viajes_mensuales_por_tipo
+```
+
+```{r}
+# Guardar el gráfico con ggsave
+ggsave("Grafico_duracion_viajes_mensuales_por_tipo",
+       plot = grafico_duracion_viajes_mensuales_por_tipo,
+       path = "~/Desktop/Analisis_de_datos/Visualizaciones/",
+       device = "jpeg")
+```
+
 ## Tipos de bicicletas
 
 ```{r warning=FALSE, message=FALSE}
@@ -444,6 +487,8 @@ conteo_tipo_bicicleta <- cyclistic_data %>%
   filter(!is.na(rideable_type)) %>%
   group_by(rideable_type) %>%
   summarise(count = n())
+
+conteo_tipo_bicicleta
 ```
 
 ### Tipo de bicicleta y tipo de usuario
@@ -453,6 +498,8 @@ tipo_bicicleta_por_tipo_usuario <- cyclistic_data %>%
   select(member_casual, rideable_type) %>% 
   group_by(member_casual, rideable_type) %>% 
   summarise(count = n())
+
+tipo_bicicleta_por_tipo_usuario
 ```
 
 #### Visualizamos
