@@ -520,3 +520,46 @@ grafico_distancia_promedio_viajes_mensuales_por_tipo
 ```
 
 ![Distancia promedio de viajes mensuales por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_promedio_viajes_mensuales_por_tipo.jpeg "Distancia promedio de viajes mensuales por tipo de usuario")
+
+## Duración promedio de los viajes por tipo de usuario agrupados por mes
+
+La última variable que hemos analizado semanalmente era la duración promedio de
+los viajes. Para poder concluir el análisis de comportamiento, la 
+visualizaremos a lo largo del año.
+
+```r
+duracion_viaje_por_mes_por_tipo_usuario <- cyclistic_data %>% 
+  group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE)) %>%
+  summarise(duracion_promedio = mean(duracion_viaje))
+
+duracion_viaje_por_mes_por_tipo_usuario
+```
+
+![Salida de la creacion del subconjunto duracion_viaje_por_mes_por_tipo_usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_duracion_promedio_de_viajes_por_mes_por_tipo_de_usuario.png "Salida de la creacion del subconjunto duracion_viaje_por_mes_por_tipo_usuario")
+
+### Visualización
+
+Para poder observar las tendencias creamos la visualización.
+
+```r
+grafico_duracion_viajes_mensuales_por_tipo <- 
+  ggplot(data = duracion_viaje_por_mes_por_tipo_usuario) +
+  geom_col(mapping = aes(x = viajes_mes, y = duracion_promedio, fill = viajes_mes)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Duración promedio de viajes mensuales",
+       subtitle = "Por tipo de usuario",
+       x = "Mes",
+       y = " Duración del viaje (minutos)",
+       fill = "Mes del año",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+grafico_duracion_viajes_mensuales_por_tipo
+```
+
+![Duración promedio de viajes mensuales](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_duracion_viajes_mensuales_por_tipo.jpeg "Duración promedio de viajes mensuales por tipo de usuario")
+
+Esta visualización muestra que también existe una distribución a lo largo de 
+los meses para esta variable. Si bien son menos pronunciados los cambios entre
+cada mes, nos permite observar que hay una mayor duración en los meses 
+centrales para ambos tipos de usuarios.
