@@ -273,3 +273,25 @@ num_viaje_por_dia_tipo
 ```
 
 ![Numero de viajes por dia de la semana](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conteo_viajes_por_dia_semana_por_tipo_usuario.png)
+
+### Visualización
+
+El siguiente gráfico muestra la distribución de viajes semanales realizados por cada tipo de usuario. Se observa que los usuarios `member` son los que realizan un mayor número de viajes a lo largo de la semana, manteniéndose casi constante. Por otro lado, los usuarios `casual` realizan un número de viajes significativamente bajo durante los días correspondientes entre el lunes y viernes, mostrando un aumento drástico el sábado y uno menos pronunciado los domingos.
+
+```r
+grafico_conteo_viajes_diarios_por_tipo <- ggplot(data = num_viaje_por_dia_tipo) +
+  geom_col(mapping = aes(x = viajes_dia_semana, y = count, fill = viajes_dia_semana)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Conteo de viajes diarios",
+       subtitle = "Por tipo de usuario",
+       x = "Día de la semana",
+       y = "Número de viajes (miles)",
+       fill = "Día de la semana",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3))
+
+grafico_conteo_viajes_diarios_por_tipo
+```
+
+![Conteo de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_conteo_viajes_diarios_por_tipo.jpeg)
