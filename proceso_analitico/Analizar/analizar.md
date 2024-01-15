@@ -426,7 +426,7 @@ El gráfico anterior debe ser visto con cuidado, pues el `eje y` ha sido iniciad
 
 ![Distancia promedio de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg "Distancia promedio de viajes diarios por tipo de usuario")
 
-## Distancia promedio de viaje por tipo de usuario agrupados por mes
+## Conteo de viajes por tipo de usuario agrupados por mes
 
 Ahora que conocemos el comportamiento semanal, es interesante poder conocer 
 cuál es su comportamiento a lo largo del año. Una de las razones iniciales por
@@ -435,10 +435,54 @@ poder extraer el comportamiento que tienen los usuarios a lo largo del año,
 permitiendo así conocer mejor sus patrones de uso.
 
 Para comenzar estas secciones que agrupan los datos por mes, analizaremos la 
-tendencia de la distancia promedio de los viajes realizados por cada tipo de 
+tendencia del número de viajes realizados por cada tipo de 
 usuario. Al igual que en las secciones anteriores, crearemos el subconjunto de
 datos de trabajo.
 
+```r
+num_viaje_por_mes_tipo <- cyclistic_data %>% 
+  group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE)) %>%
+  summarise(count = n())
+
+num_viaje_por_mes_tipo
+```
+
+![Salida de la creacion del subconjunto de datos num_viaje_por_mes_tipo](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conteo_de_viajes_mensuales_por_tipo_usuario.png "Salida de la creacion del subconjunto de datos num_viaje_por_mes_tipo")
+
+### Visualización
+
+Estas visualizaciones, que se realizan contando el número de observaciones según
+una característica, son muy similares a un histograma y es posible realizarlo 
+si, en lugar de tener nombres de meses o días en el eje x, creáramos variables
+categóricas numéricas. Para fines de este proyecto, lo seguiremos manteniendo 
+de esta manera.
+
+```r
+grafico_conteo_viajes_mensuales_por_tipo <- 
+  ggplot(data = num_viaje_por_mes_tipo) +
+  geom_col(mapping = aes(x = viajes_mes, y = count, fill = viajes_mes)) +
+  facet_wrap(~member_casual) +
+  labs(title = "Número de viajes mensuales",
+       subtitle = "Por tipo de usuario",
+       x = "Mes",
+       y = "Número de viajes (miles)",
+       fill = "Mes del año",
+       caption = "alabacw74 / Datos de divybykes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3),
+                     breaks = seq(0, 350000, by = 50000))
+
+grafico_conteo_viajes_mensuales_por_tipo
+```
+
+![Número de viajes mensuales por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_conteo_viajes_mensuales_por_tipo.jpeg "Número de viajes mensuales por tipo de usuario")
+
+
+## Distancia promedio de viaje por tipo de usuario agrupados por mes
+
+La siguiente variable que podemos analizar, siguiendo la línea de pensamiento 
+anterior, es la distancia promedio de viaje que ha realizado cada tipo de 
+usuario por cada mes.
 ```r
 distancia_viaje_por_mes_tipo <- cyclistic_data %>% 
   group_by(member_casual, mes = month(fecha_inicio, label= TRUE)) %>% 
