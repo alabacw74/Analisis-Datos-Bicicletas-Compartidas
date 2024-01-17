@@ -212,7 +212,8 @@ cyclistic_data %>%
 
 ```{r warning=FALSE, message=FALSE}
 num_viaje_por_dia_tipo <- cyclistic_data %>%
-  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>%
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio),
+           año=year(fecha_inicio)) %>%
   summarise(count = n())
 
 ```
@@ -236,7 +237,7 @@ num_viaje_por_dia_tipo
 ```{r}
 grafico_conteo_viajes_diarios_por_tipo <- ggplot(data = num_viaje_por_dia_tipo) +
   geom_col(mapping = aes(x = viajes_dia_semana, y = count, fill = viajes_dia_semana)) +
-  facet_wrap(~member_casual) +
+  facet_grid(año~member_casual) +
   labs(title = "Conteo de viajes diarios",
        subtitle = "Por tipo de usuario",
        x = "Día de la semana",
