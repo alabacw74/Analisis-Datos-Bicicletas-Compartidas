@@ -10,16 +10,18 @@ Explora este repositorio para descubrir nuestro enfoque analítico, visualizacio
 
 ## Fases del analisis de datos
 
-### ❔ [Preguntar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preguntar.md)
+### ❔ [Preguntar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preguntar.md "Documentación de la fase inicial")
 Aquí definimos nuesta tarea empresarial y proponemos cuestiones iniciales para resolver el problema.
 
-### 🛠️ [Preparar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preparar.md)
+### 🛠️ [Preparar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/preparar.md "Documentación de la preparación de los datos")
 Descipcion detallada de la fuente de datos que se utilizara, incluimos varias secciones que responden a cuestiones como la ubicación de los datos, su organizacion, como obtendremos informacion util a partir de ellos, bajo que licencia se encuentran, entre otros.
 
-### 🔄 [Procesar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/procesar.md)
+### 🔄 [Procesar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Procesar/procesar.md "Documentación del procesamiento de los datos")
 Se documenta todo el procesamiento de datos en donde incluimos la descripción de bloques de código que permitan automatizar tareas de importación, transformación, limpieza y organización del conjunto de datos obteniendo finalmente un data set listo para ser analizado.
 
-### 📊 Analizar
+### 📊 [Analizar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/analizar.md "Documentación del proceso de analisís")
+
+En esta fase, extraemos la información de valor que nos permite responder a la tarea empresarial. Sale a la luz lo que los datos nos quieren decir y en el proceso encontramos problemáticas nuevas que nos llevan a iterar entre la fase de procesamiento y la fase de análisis. Lo anterior se logra con el apoyo de visualizaciones que nos dan una forma directa de interpretar los datos.
 
 ### 🌐 Compartir
 
