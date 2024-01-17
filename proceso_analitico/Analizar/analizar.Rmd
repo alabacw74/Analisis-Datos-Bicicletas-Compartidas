@@ -445,7 +445,8 @@ de los viajes, para poder concluir los analisís de comportamiento la visualizar
 a lo largo del año
 ```{r}
 duracion_viaje_por_mes_por_tipo_usuario <- cyclistic_data %>% 
-  group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE)) %>%
+  group_by(member_casual, viajes_mes = month(fecha_inicio, label = TRUE),
+           año = year(fecha_inicio)) %>%
   summarise(duracion_promedio = mean(duracion_viaje))
 
 duracion_viaje_por_mes_por_tipo_usuario
@@ -456,7 +457,7 @@ duracion_viaje_por_mes_por_tipo_usuario
 grafico_duracion_viajes_mensuales_por_tipo <- 
   ggplot(data = duracion_viaje_por_mes_por_tipo_usuario) +
   geom_col(mapping = aes(x = viajes_mes, y = duracion_promedio, fill = viajes_mes)) +
-  facet_wrap(~member_casual) +
+  facet_grid(año~member_casual) +
   labs(title = "Duración promedio de viajes mensuales",
        subtitle = "Por tipo de usuario",
        x = "Mes",
