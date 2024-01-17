@@ -262,7 +262,7 @@ ggsave("Grafico_conteo_viajes_diarios_por_tipo.jpeg",
 
 ```{r warning=FALSE, message=FALSE}
 tiempo_viaje_por_dia_tipo <- cyclistic_data %>% 
-  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio)) %>% 
+  group_by(member_casual, viajes_dia_semana = weekdays(fecha_inicio), año = year(fecha_inicio)) %>% 
   summarise(duracion_promedio = mean(duracion_viaje))
 ```
 
@@ -287,8 +287,9 @@ tiempo_viaje_por_dia_tipo
 
 ```{r}
 grafico_duracion_viaje_por_tipo <- ggplot(data = tiempo_viaje_por_dia_tipo) +
-  geom_col(mapping = aes(x = viajes_dia_semana, y = duracion_promedio, fill = viajes_dia_semana)) +
-  facet_wrap(~member_casual) +
+  geom_point(mapping = aes(x = viajes_dia_semana, y = duracion_promedio,
+                           color=viajes_dia_semana)) +
+  facet_grid(member_casual~año) +
   labs(title = "Duración promedio de viajes diarios",
        subtitle = "Por tipo de usuario",
        x = "Día de la semana",
