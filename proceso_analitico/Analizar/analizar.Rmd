@@ -365,7 +365,7 @@ ggsave("Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg",
 
 ```{r warning=FALSE, message=FALSE}
 distancia_viaje_por_mes_tipo <- cyclistic_data %>% 
-  group_by(member_casual, mes = month(fecha_inicio, label= TRUE)) %>% 
+  group_by(member_casual, mes = month(fecha_inicio, label= TRUE), año = year(fecha_inicio)) %>% 
   summarise(distancia_promedio = mean(distancia_viaje)/1000)
 
 distancia_viaje_por_mes_tipo
@@ -375,8 +375,8 @@ distancia_viaje_por_mes_tipo
 ```{r}
 grafico_distancia_promedio_viajes_mensuales_por_tipo <-
   ggplot(data = distancia_viaje_por_mes_tipo) +
-  geom_col(mapping = aes(x = mes, y = distancia_promedio, fill = mes)) +
-  facet_wrap(~member_casual) +
+  geom_col(mapping = aes(x = mes, y = distancia_promedio, fill = member_casual)) +
+  facet_grid(member_casual~año) +
   labs(title = "Distancia promedio de viajes mensuales",
        subtitle = "Por tipo de usuario",
        x = "Mes",
