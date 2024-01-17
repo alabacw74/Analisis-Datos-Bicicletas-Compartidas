@@ -3,6 +3,39 @@
 Alfredo Aburto
 2024-01-10
 
+## Índice
+
+- [Analisís: Conjunto de datos de Cyclistic](#analisís-conjunto-de-datos-de-cyclistic)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Cargar entorno de trabajo](#cargar-entorno-de-trabajo)
+  - [Importar nuestro conjunto de datos](#importar-nuestro-conjunto-de-datos)
+    - [Visualización](#visualización)
+  - [Duración de viaje](#duración-de-viaje)
+    - [Visualización](#visualización-1)
+  - [Distancia de viaje](#distancia-de-viaje)
+    - [Visualización](#visualización-2)
+  - [Distancia contra tiempo por tipo de usuario](#distancia-contra-tiempo-por-tipo-de-usuario)
+    - [Visualizacion](#visualizacion)
+  - [Correlación entre la distancia y la duración de viaje](#correlación-entre-la-distancia-y-la-duración-de-viaje)
+  - [Número de pasajeros por día de la semana](#número-de-pasajeros-por-día-de-la-semana)
+    - [Visualización](#visualización-3)
+  - [Duración de viaje promedio diario por tipo de usuario](#duración-de-viaje-promedio-diario-por-tipo-de-usuario)
+  - [Visualización](#visualización-4)
+  - [Distancia de viaje promedio diario por tipo de usuario](#distancia-de-viaje-promedio-diario-por-tipo-de-usuario)
+    - [Visualización](#visualización-5)
+  - [Conteo de viajes por tipo de usuario agrupados por mes](#conteo-de-viajes-por-tipo-de-usuario-agrupados-por-mes)
+    - [Visualización](#visualización-6)
+  - [Distancia promedio de viaje por tipo de usuario agrupados por mes](#distancia-promedio-de-viaje-por-tipo-de-usuario-agrupados-por-mes)
+    - [Visualización](#visualización-7)
+  - [Duración promedio de los viajes por tipo de usuario agrupados por mes](#duración-promedio-de-los-viajes-por-tipo-de-usuario-agrupados-por-mes)
+    - [Visualización](#visualización-8)
+  - [Tipos de bicicletas](#tipos-de-bicicletas)
+    - [Obtención de las categorias existentes en el tipo de bicicletas](#obtención-de-las-categorias-existentes-en-el-tipo-de-bicicletas)
+    - [Conteo del número de usuarios para cada tipo de bicicleta](#conteo-del-número-de-usuarios-para-cada-tipo-de-bicicleta)
+    - [Tipo de bicicleta y tipo de usuario](#tipo-de-bicicleta-y-tipo-de-usuario)
+      - [Visualización](#visualización-9)
+
 ## Objetivo
 En esta fase del análisis de datos, buscamos obtener la información valiosa que nuestro conjunto de datos pueda ofrecer. En este punto, contamos con datos preparados y procesados, listos para ser analizados. Por ello, en esta sección utilizaremos herramientas estadísticas que nos permitan conocer el comportamiento diferenciado entre los miembros casuales y los suscriptores anuales del sistema de préstamo de bicicletas.
 
