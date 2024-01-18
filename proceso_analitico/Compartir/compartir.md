@@ -104,3 +104,26 @@ usuarios.
 > `member` realizan un uso más constante del servicio a lo largo de los días 
 > laborales de la semana, aumentando igualmente sus viajes al acercarse el
 > fin de semana, teniendo un mínimo los domingos.
+
+Para seguir mejorando nuestra argumentación con respecto a la hipótesis, veamos
+qué sucede con la duración promedio de los viajes a lo largo de una semana. 
+Si la hipótesis es verdadera, tendríamos que ver que, al ser viajes con un 
+propósito de transporte para un usuario `member`, estos viajes serán de menor
+duración. Por el contrario, si la mayoría de los viajes que realiza un usuario
+`casual` están enfocados en la recreación, refiriéndonos al descubrimiento o 
+exploración de nuevos lugares en la ciudad o por disfrutar un paseo en 
+bicicleta, los viajes deben ser de una duración mayor.
+
+![Gráfico duración de viaje diaria por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_duracion_viajes_diarios_por_tipo.jpeg "Duración promedio de viajes diarios por tipo de usuario")
+
+Estos resultados son lógicos, pues ya habíamos mostrado las diferencias en la
+duración promedio de los viajes para cada tipo de usuario. Sin embargo, la
+visualización anterior nos da un mayor entendimiento de cómo cada usuario
+distribuye la duración de sus viajes a lo largo de la semana, destacando que la
+duración presenta un comportamiento similar a lo que se observa en el número de
+viajes que realizan. Para un usuario `member`, la duración de sus viajes se
+observa muy similar para los días laborales, teniendo pequeñas diferencias los
+fines de semana. Mientras que un usuario `casual` muestra un comportamiento más
+variado, pero que igual coincide con la hipótesis de que este tipo de usuario
+prefiere los viajes de fin de semana, pues no solo realiza más viajes estos
+días, sino que también hace que sean más duraderos.
