@@ -40,7 +40,7 @@ en mente, sabemos que de los `3470906` viajes que se realizaron entre **abril de
 2020 y abril del 2021** el **62% de los viajes fueron realizados por usuarios `member`**
 mientras que el restante **38% por usuarios `casual`**.
 
-![Proporción de tipos usuarios](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/tibble_conteo_tipo_usuario.png "Proporción de tipos de usuarios")
+![Porcentajes por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_porcentaje_tipo_usuario.jpeg "Proporción de tipos de usuarios")
 
 Esto nos dice que 
 > Un usuario `casual` realiza muchos menos viajes a lo largo del
@@ -77,3 +77,18 @@ que realiza cada usuario a lo largo de la semana para así poder llegar a una
 conclusión fundamentada del planteamiento anterior sobre las diferencias en las
 duraciones de viaje a pesar de no existir una diferencia significativa en las
 distancias que recorren.
+
+La hipótesis que planteo para el cuestionamiento del párrafo anterior es que un 
+usuario `casual` se caracteriza por tener viajes enfocados en la recreación. 
+Por lo tanto, tendríamos que observar un aumento en su número de viajes a medida
+que se acerca el fin de semana y una caída significativa durante los días 
+laborales. Por otro lado, un usuario `member` usa el sistema de bicicletas 
+para suplir una necesidad de transporte, posiblemente como medio de transporte
+principal para dirigirse a sus espacios de trabajo. Por lo que veríamos un 
+uso más constante en los días laborales y una disminución los fines de semana, 
+sin descartar la posibilidad de que un usuario `member`, al ya tener su 
+suscripción, también disfrute de un paseo dominical en bicicleta.
+
+Para contrastar la hipótesis veamos lo que los datos muestran
+
+![Conteo de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_conteo_viajes_diarios_por_tipo.jpeg "Número de pasajeros por día de la semana")
