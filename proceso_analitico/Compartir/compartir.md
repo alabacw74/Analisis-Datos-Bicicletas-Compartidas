@@ -89,6 +89,18 @@ uso más constante en los días laborales y una disminución los fines de semana
 sin descartar la posibilidad de que un usuario `member`, al ya tener su 
 suscripción, también disfrute de un paseo dominical en bicicleta.
 
-Para contrastar la hipótesis veamos lo que los datos muestran
+Para contrastar la hipótesis veamos lo que los datos muestran:
 
 ![Conteo de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_conteo_viajes_diarios_por_tipo.jpeg "Número de pasajeros por día de la semana")
+
+Con la visualización anterior comprobamos que la hipótesis se adapta a la naturaleza
+de los datos y así obtenemos un nuevo comportamiento que diferencia a nuestros
+usuarios.
+
+> Los usuarios `casual` aumentan el número de viajes que realizan conforme se 
+> acerca el fin de semana, teniendo un máximo los sábados; realizan un uso 
+> casi constante de lunes a jueves siendo significativamente menor en
+> comparación con los usuarios `member`. Por otro lado, los usuarios
+> `member` realizan un uso más constante del servicio a lo largo de los días 
+> laborales de la semana, aumentando igualmente sus viajes al acercarse el
+> fin de semana, teniendo un mínimo los domingos.
