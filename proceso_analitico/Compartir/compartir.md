@@ -177,3 +177,18 @@ esta época del año.
 
 > Los meses de Junio, Julio y Agosto son los meses con mayor incidencia ciclista
 > teniendo su máximo en Agosto.
+
+Para finalizar nuestras observaciones de la información obtenida veamos algunas
+particularidades en el tipo de bicicleta que prefieren los usuarios.
+
+![Grafico de preferencias de bicicleta por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_preferencias_bicicletas.jpeg "Grafico preferencias de bicicleta por tipo de usuario")
+
+Al observar este gráfico no se observa una preferencia diferenciada por el tipo
+de bicicleta para los dos tipos de usuario. Es evidente que ambos prefieren las
+bicicletas de tipo `docked`, seguido de las bicicletas `electric` y finalizando
+con las de tipo `classic`. El conjunto de datos no muestra información sobre
+las características de cada una pero es evidente que si deseamos mantener contentos
+a ambos tipos de usuarios debemos tener una alta disponibilidad de bicicletas
+`docked`
+
+> Ambos tipos de usuarios prefieren las `docked bikes`
