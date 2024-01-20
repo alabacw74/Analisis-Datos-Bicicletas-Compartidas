@@ -371,12 +371,12 @@ dias_laborales <- c("lunes",
                     "jueves",
                     "viernes")
 cyclistic_data %>% 
+  select(member_casual, distancia_viaje, fecha_inicio) %>% 
   filter(weekdays(fecha_inicio) %in% dias_laborales) %>%
   group_by(member_casual) %>% 
   summarise(distancia_promedio = mean(distancia_viaje),
             desviacion_estandar = sd(distancia_viaje)) %>% 
   drop_na()
-
 ```
 
 ## Distancia promedio de viaje por tipo de usuario agrupados por mes
