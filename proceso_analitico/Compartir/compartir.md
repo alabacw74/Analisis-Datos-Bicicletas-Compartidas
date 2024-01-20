@@ -127,3 +127,23 @@ fines de semana. Mientras que un usuario `casual` muestra un comportamiento más
 variado, pero que igual coincide con la hipótesis de que este tipo de usuario
 prefiere los viajes de fin de semana, pues no solo realiza más viajes estos
 días, sino que también hace que sean más duraderos.
+
+La última prueba que podemos agregar para afirmar nuestra hipótesis es observar
+la distancia promedio que recorre cada tipo de usuario a lo largo de una semana.
+Ya se había mencionado que no existían diferencias significativas en la 
+distancia promedio que recorre cada usuario, sin embargo, si vemos el comportamiento
+diario podemos obtener información útil.
+
+![Distancia promedio de viajes diarios por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg "Distancia promedio de viajes diarios por tipo de usuario")
+
+
+Observamos que para los usuarios `member` existe una menor dispersión de los datos
+entre los días laborales, si hemos planteado la hipótesis de que su uso es para
+transportarse encontraríamos justo lo que tenemos ahora, pues sus viajes no variarían
+en cuánto a su origen y destino, ya que sus lugares de trabajo serían naturalmente,
+constantes. Para corroborar esto numéricamente mostramos la salida que muestra
+la desviación estándar del promedio de la distancia y duración de los viajes 
+para ambos usuarios.
+
+
+![Salida del cálculo de la dispersión de la distancia de viaje por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/salida_dispercion_distancia_de%20_viaje_por_dia_y_por_tipo_usuario.png "Salida del cálculo de la dispersión de la distancia de viaje por tipo de usuario")
