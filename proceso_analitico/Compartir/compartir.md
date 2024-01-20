@@ -161,3 +161,19 @@ obteniendo las siguientes conclusiones:
 > Un usuario `member`realiza viajes con distancias similares a lo largo de la
 > semana, por otro lado un usuario `casual` tiene mayor variación en sus
 > recorridos.
+
+Veamos a continuación la distribución en la cantidad de viajes que realiza cada
+tipo de usuario a lo largo del año.
+
+![Cantidad de viajes por tipo de usuario realizados por mes](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/Visualizaciones/Grafico_duracion_viajes_mensuales_por_tipo.jpeg "Cantidad de viajes por tipo de usuario realizados por mes")
+
+La información que podemos extraer de esta visualización es el comportamiento
+estacional que tienen los usuarios. Se puede atribuir a las condiciones ambientales
+que existen para cada estación del año. Ambos usuarios tienden a viajar más en las
+épocas de verano teniendo una posible justificación en el periodo vacacional para 
+los usuarios `casual` que, como justificamos anteriormente, al ser sus viajes con
+fines recreativos pueden disfrutar de las condiciones climáticas más agradables de
+esta época del año.
+
+> Los meses de Junio, Julio y Agosto son los meses con mayor incidencia ciclista
+> teniendo su máximo en Agosto.
