@@ -23,7 +23,9 @@ Se documenta todo el procesamiento de datos en donde incluimos la descripción d
 
 En esta fase, extraemos la información de valor que nos permite responder a la tarea empresarial. Sale a la luz lo que los datos nos quieren decir y en el proceso encontramos problemáticas nuevas que nos llevan a iterar entre la fase de procesamiento y la fase de análisis. Lo anterior se logra con el apoyo de visualizaciones que nos dan una forma directa de interpretar los datos.
 
-### 🌐 Compartir
+### 🌐 [Compartir](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Compartir/compartir.md "Resumen y discusión de información obtenida")
+
+Aquí mostramos y justificamos la información de valor que pudimos extraer gracias al proceso de análisis. Presentamos nuestras visualizaciones, las explicamos, planteamos hipótesis para refutarlas o comprobarlas a través de los datos. Todo esto en un formato de informe que permite a los interesados conocer el conjunto de datos tanto como lo hemos hecho nosotros.
 
 ### 🚀 Actuar
 
