@@ -12,7 +12,7 @@ lograr los objetivos de la empresa
 
 > Convertir al mayor número de usuarios `casual` en tipo `member`
 
-## Caracteristicas clave de los tipos de usuario
+## Características clave de los tipos de usuario
 
 1. > Un usuario `casual` realiza muchos menos viajes en un periodo de un año que un usuario `member`.
 2. > Los usuarios `casual` viajan menos veces pero por mayor tiempo que un usuario `member`.
@@ -26,4 +26,47 @@ recorridos.
 6. > Los meses de Junio, Julio y Agosto son los meses con mayor incidencia ciclista
 teniendo su máximo en Agosto.
 
+## Recomendaciones
 
+Nuestras recomendaciones giran entorno a la siguiente cuestión:
+
+> ¿Porqué un usuario `casual` desearía convertirse en un `member`?
+
+Es evidente que los usuarios `casual` representan una gran parte de nuestra
+población pero sus razones para mantenerse en el uso casual deben ser lógicas
+para ellos de lo contrario se volverían `member`. Con lo anterior quiero decir
+que posiblemente a los usuarios `casual` no les resulta evidente que volverse
+`member` les traería beneficios, por lo que será necesario ayudar a evidenciar 
+dichos beneficios.
+
+Como se ha dicho desde el principio, lograr una mayor cantidad de suscripciones 
+anuales es el objetivo y se logrará a través de la campaña de marketing. Nuestras
+tres recomendaciones puntuales son:
+
+1. > La campaña de marketing debe concientizar a los usuarios sobre los beneficios
+que se obtienen con el uso recurrente de la bicicleta no solo como una herramienta 
+de recreación, sino como una tecnología que beneficia al medio ambiente, reduce
+el tráfico vehicular, en muchos casos reduce el tiempo de traslado y a su vez
+favorece la salud.
+
+A los usuarios les gustará saber que en lo que muchas ocasiones se conoce como
+tiempo muerto (traslados) pueden ser aprovechados para mejorar su salud mientras
+se divierten usando la bicicleta para llegar a sus trabajos.
+
+2. > Crear ofertas en el costo de la suscripción en los meses de Junio, Julio y
+Agosto, ya que son los que mayor número de viajes concentran y en donde existe
+una mayor área de oportunidad para obtener nuevas suscripciones.
+
+3. > Crear nuevas categorías de suscripción que permitan el uso del sistema de 
+préstamo con los mismos beneficios que los suscriptores anuales pero con un espacio
+temporal de uso que abarque los fines de semana.
+
+A los usuarios `casual` les gusta viajar en bicicleta los fines de semana, si
+se les presenta una oferta que les permita tener los beneficios de una suscripción
+cada fin de semana, seguramente obtendríamos más suscriptores en esta nueva modalidad.
+
+Estas tres recomendaciones buscan empatizar con los usuarios `casual` y entender
+sus motivaciones para mantenerse en usuarios casuales y no obtener una suscripción
+con la finalidad de poder mostrarles información y ofertas que se adecúen a sus
+necesidades y preferencias. Sin embargo, existen muchas áreas de oportunidad para
+seguir explorando a nuestros usuarios, en la siguiente sección mencionamos algunas.
