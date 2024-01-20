@@ -361,6 +361,24 @@ ggsave("Grafico_distancia_promedio_viajes_diarios_por_tipo.jpeg",
        device = "jpeg")
 ```
 
+### Desviación estandar de la distancia de viaje en los días laborales por tipo de usuario
+
+```{r}
+# Member
+dias_laborales <- c("lunes",
+                    "martes",
+                    "miércoles",
+                    "jueves",
+                    "viernes")
+cyclistic_data %>% 
+  filter(weekdays(fecha_inicio) %in% dias_laborales) %>%
+  group_by(member_casual) %>% 
+  summarise(distancia_promedio = mean(distancia_viaje),
+            desviacion_estandar = sd(distancia_viaje)) %>% 
+  drop_na()
+
+```
+
 ## Distancia promedio de viaje por tipo de usuario agrupados por mes
 
 ```{r warning=FALSE, message=FALSE}
