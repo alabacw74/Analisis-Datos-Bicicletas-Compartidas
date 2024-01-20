@@ -3,6 +3,13 @@
 Alfredo Aburto
 2024-01-16
 
+## Tabla de contenidos
+- [Compartir: Resultados del Análisis del Conjunto de datos de Cyclistic](#compartir-resultados-del-análisis-del-conjunto-de-datos-de-cyclistic)
+  - [Tabla de contenidos](#tabla-de-contenidos)
+  - [Objetivo](#objetivo)
+  - [Introducción](#introducción)
+  - [Análisis de los resultados](#análisis-de-los-resultados)
+
 ## Objetivo
 
 En el presente documento se presenta el análisis de los resultados que obtuvimos
