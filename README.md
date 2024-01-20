@@ -35,5 +35,5 @@ Aquí mostramos y justificamos la información de valor que pudimos extraer grac
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
-
-**Nota:** Este análisis forma parte de mi desarrollo en habilidades de análisis de datos, guiado por el [programa de Google](https://www.coursera.org/learn/completa-un-caso-practico/supplement/7PGIT/caso-practico-1-como-lograr-el-exito-rapido-de-un-negocio-de-bicicletas)
+> [!NOTE]
+> Este análisis forma parte de mi desarrollo en habilidades de análisis de datos, guiado por el [programa de Google](https://www.coursera.org/learn/completa-un-caso-practico/supplement/7PGIT/caso-practico-1-como-lograr-el-exito-rapido-de-un-negocio-de-bicicletas). La empresa Cyclistic es de carácter ficticio con el fin de representar un entorno de trabajo más realista.
