@@ -147,3 +147,17 @@ para ambos usuarios.
 
 
 ![Salida del cálculo de la dispersión de la distancia de viaje por tipo de usuario](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/Analizar/images/salida_dispercion_distancia_de%20_viaje_por_dia_y_por_tipo_usuario.png "Salida del cálculo de la dispersión de la distancia de viaje por tipo de usuario")
+
+Con esta última salida defendemos la hipótesis planteada pues la desviación estándar
+para la distancia de los viajes realizados por los usuarios `member` es menor,
+indicando que en efecto sus viajes son más uniformes durante los días laborales
+que a la vez podemos atribuir a la función que le dan al sistema de bicicletas,
+obteniendo las siguientes conclusiones:
+
+> Un usuario `member` utiliza el sistema para suplir una necesidad de transporte
+> a sus espacios laborales, mientras que un usuario `casual` tiene un enfoque
+> más recreativo.
+
+> Un usuario `member`realiza viajes con distancias similares a lo largo de la
+> semana, por otro lado un usuario `casual` tiene mayor variación en sus
+> recorridos.
