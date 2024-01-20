@@ -70,3 +70,13 @@ sus motivaciones para mantenerse en usuarios casuales y no obtener una suscripci
 con la finalidad de poder mostrarles información y ofertas que se adecúen a sus
 necesidades y preferencias. Sin embargo, existen muchas áreas de oportunidad para
 seguir explorando a nuestros usuarios, en la siguiente sección mencionamos algunas.
+
+## Áreas de oportunidad
+
+Nuestro conjunto de datos no contenía información personal sobre las personas que realizaban los viajes, lo cual limitó nuestra capacidad para determinar el número exacto de usuarios únicos. Esta información podría haber sido relevante para comprender mejor el comportamiento individual de los usuarios y ajustar nuestras estrategias de conversión de manera más personalizada.
+
+Para abordar esta limitación en futuras iniciativas, podríamos considerar la implementación de encuestas opcionales para los usuarios, recopilando datos demográficos y preferencias. Esto nos permitiría crear perfiles más detallados y adaptar nuestras estrategias de marketing de manera más específica, maximizando así las posibilidades de conversión.
+
+Además, explorar asociaciones o colaboraciones con otras empresas locales o servicios de transporte podría ser una estrategia adicional. Al vincularnos con entidades externas, podríamos acceder a datos complementarios que enriquecerían nuestra comprensión del comportamiento del usuario y nos proporcionarían información valiosa para mejorar nuestras iniciativas de marketing.
+
+Estamos conscientes de la importancia de la privacidad de los usuarios, y cualquier esfuerzo adicional para recopilar datos personales se llevaría a cabo respetando las regulaciones y normativas vigentes, asegurando la transparencia y el consentimiento adecuado.
