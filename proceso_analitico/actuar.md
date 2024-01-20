@@ -90,3 +90,33 @@ Adicionalmente, se recomienda la implementación de un sistema robusto de captur
 Para enriquecer nuestro entendimiento de las conversiones, se sugiere la realización de encuestas de retroalimentación a los usuarios que han realizado el cambio de `casual` a `member`. Estas encuestas pueden arrojar luz sobre los motivadores clave que llevaron a la conversión y proporcionarán valiosos insights para futuras estrategias de retención y fidelización.
 
 Al utilizar un modelo de base de datos que sigue buenas prácticas de diseño, garantizamos la integridad y consistencia de los datos, al tiempo que protegemos la privacidad de los usuarios mediante la adecuada gestión de información personal. Esta medida contribuirá a mantener la calidad de los datos a lo largo del tiempo y permitirá realizar análisis más profundos y personalizados en el futuro.
+
+## Preguntas Adicionales y Enfoque Probabilístico
+
+Como parte de nuestra estrategia analítica, es beneficioso explorar ciertas preguntas adicionales desde una perspectiva probabilística, permitiéndonos obtener insights más matizados y realistas. Aquí destacamos algunas áreas clave:
+
+### 1. Comportamiento Diario y Mensual de Usuarios
+
+> **Pregunta:** ¿Cuál es la probabilidad de que un usuario realice un viaje en bicicleta en un día específico o en un mes determinado?
+
+**Enfoque Probabilístico:** Podemos utilizar modelos de series temporales probabilísticas para prever la cantidad esperada de viajes en diferentes días o meses, considerando patrones estacionales, días de la semana y eventos especiales que puedan afectar el uso de bicicletas.
+
+### 2. Conversión de Usuarios Casuales a Miembros Anuales
+
+> **Pregunta:** ¿Cuál es la probabilidad de conversión de un usuario casual a miembro anual después de ser expuesto a la campaña de marketing?
+
+**Enfoque Probabilístico:** Podemos implementar un modelo de conversión probabilístico que considere factores como la efectividad de la campaña, la demografía del usuario y su historial de viajes para estimar la probabilidad de que un usuario casual se convierta en miembro anual.
+
+### 3. Distancia de Viaje Probable
+
+> **Pregunta:** ¿Cuál es la probabilidad de que un usuario recorra una distancia específica en su viaje en bicicleta?
+
+**Enfoque Probabilístico:** Utilizando distribuciones de probabilidad, podemos modelar la variabilidad en las distancias de viaje y calcular la probabilidad de que un usuario seleccione una distancia particular en su recorrido.
+
+### 4. Disponibilidad de Modelos de Bicicletas en Estaciones
+
+> **Pregunta:** ¿Cuál es la probabilidad de que un modelo específico de bicicleta esté disponible en una estación dada?
+
+**Enfoque Probabilístico:** A través de análisis de disponibilidad histórica y patrones de uso, podemos desarrollar modelos probabilísticos para prever la disponibilidad de modelos específicos en estaciones particulares durante ciertos momentos del día o días de la semana.
+
+Adoptar un enfoque probabilístico en estas áreas nos permitirá no solo hacer predicciones más precisas, sino también cuantificar la incertidumbre asociada con nuestras estimaciones, lo cual es crucial para la toma de decisiones informadas.
