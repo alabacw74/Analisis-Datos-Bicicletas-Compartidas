@@ -80,3 +80,13 @@ Para abordar esta limitación en futuras iniciativas, podríamos considerar la i
 Además, explorar asociaciones o colaboraciones con otras empresas locales o servicios de transporte podría ser una estrategia adicional. Al vincularnos con entidades externas, podríamos acceder a datos complementarios que enriquecerían nuestra comprensión del comportamiento del usuario y nos proporcionarían información valiosa para mejorar nuestras iniciativas de marketing.
 
 Estamos conscientes de la importancia de la privacidad de los usuarios, y cualquier esfuerzo adicional para recopilar datos personales se llevaría a cabo respetando las regulaciones y normativas vigentes, asegurando la transparencia y el consentimiento adecuado.
+
+## Próximos pasos
+
+Una vez implementada la campaña de marketing, es crucial realizar un seguimiento riguroso de la cantidad de usuarios `casual` que se convierten en `member`. Este análisis post-implementación nos permitirá evaluar el éxito o, en su caso, identificar áreas de mejora en nuestra estrategia.
+
+Adicionalmente, se recomienda la implementación de un sistema robusto de captura de datos utilizando una base de datos que cumpla con los estándares de diseño. La adopción de una estructura de base de datos bien diseñada, con múltiples tablas, proporcionará una organización eficiente y facilitará la gestión de datos a largo plazo.
+
+Para enriquecer nuestro entendimiento de las conversiones, se sugiere la realización de encuestas de retroalimentación a los usuarios que han realizado el cambio de `casual` a `member`. Estas encuestas pueden arrojar luz sobre los motivadores clave que llevaron a la conversión y proporcionarán valiosos insights para futuras estrategias de retención y fidelización.
+
+Al utilizar un modelo de base de datos que sigue buenas prácticas de diseño, garantizamos la integridad y consistencia de los datos, al tiempo que protegemos la privacidad de los usuarios mediante la adecuada gestión de información personal. Esta medida contribuirá a mantener la calidad de los datos a lo largo del tiempo y permitirá realizar análisis más profundos y personalizados en el futuro.
