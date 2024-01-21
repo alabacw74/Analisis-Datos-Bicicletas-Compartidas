@@ -34,6 +34,10 @@ Incluye una sección para discutir las acciones recomendadas basadas en los resu
 - `visualizaciones/`: Resultados visuales de la fase de análisis.
 - `data/`: Almacena los conjuntos de datos utilizados en el proyecto.
 
+## Contribuciones
+
+¡Tu contribución es bienvenida! Si tienes sugerencias, correcciones o mejoras, no dudes en abrir una pull request. También puedes informar problemas o proporcionar comentarios.
+
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
