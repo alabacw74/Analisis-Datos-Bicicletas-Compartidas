@@ -28,6 +28,12 @@ En esta sección, mostramos y justificamos la información valiosa extraída dur
 ### 🚀 [Actuar](https://github.com/alabacw74/analisis-datos-bicicletas-compartidas/blob/main/proceso_analitico/actuar.md "Recomendaciones para actuar")
 Incluye una sección para discutir las acciones recomendadas basadas en los resultados del análisis. Detalla cómo las recomendaciones pueden contribuir a la optimización de las membresías anuales y al éxito general de Cyclistic.
 
+## Estructura del Proyecto
+
+- `proceso_analitico/`: Contiene la documentación detallada de cada fase del análisis.
+- `visualizaciones/`: Resultados visuales de la fase de análisis.
+- `data/`: Almacena los conjuntos de datos utilizados en el proyecto.
+
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
