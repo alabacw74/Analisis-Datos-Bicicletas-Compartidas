@@ -30,7 +30,7 @@ Chicago.
 
 ## Fecha de Adquisición
 
-Los datos son recopilados el 5 de enero de 2024, son datos de 
+Los datos son recopilados el 5 de enero de 2024
 
 ## Organización de los Datos
 
